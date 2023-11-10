@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/pedidos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/baseline_shopping_cart_24"
+        android:title="Pedidos" />
+    <item
+        android:id="@+id/programados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/baseline_calendar_month_24"
+        android:title="Programados" />
+    <item
+        android:id="@+id/historial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/baseline_watch_later_24"
+        android:title="Historial" />
+    <item
+        android:id="@+id/ayuda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/baseline_help_24"
+        android:title="Ayuda" />
+    <item
+        android:id="@+id/perfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/__icon__person_"
+        android:title="Perfil" />
+
+</menu>

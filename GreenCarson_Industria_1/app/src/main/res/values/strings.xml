@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">GreenCarson_Industria_1</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nombre_de_compa_ia">Nombre de compañia:</string>
+    <string name="perfil">Perfil</string>
+
+    <string-array name="unidad">
+        <item>Seleciona Unidad</item>
+        <item>Kilogramos</item>
+        <item>Botes</item>
+        <item>Bolsas</item>
+        <item>Cajas Grandes</item>
+    </string-array>
+
+    <string-array name="materiales">
+        <item>Seleciona Material</item>
+        <item>Cartón</item>
+        <item>Papel</item>
+        <item>Vidrio</item>
+        <item>Plásticos</item>
+        <item>Orgánicos Compostables</item>
+    </string-array>
+
+
+</resources>

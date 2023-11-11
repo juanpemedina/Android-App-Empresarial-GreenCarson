@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,7 +99,7 @@ public class ProgramadosCancelarFragment extends Fragment {
             Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.layout_custom_dialog);
             //button no
-            Button btnNo = dialog.findViewById(R.id.btn_yes);
+            Button btnNo = dialog.findViewById(R.id.btn_no);
             btnNo.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
@@ -108,7 +107,7 @@ public class ProgramadosCancelarFragment extends Fragment {
                 }
             });
             //button yes
-            Button btnYes = dialog.findViewById(R.id.btn_no);
+            Button btnYes = dialog.findViewById(R.id.btn_yes);
             btnYes.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){

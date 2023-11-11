@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,28 +74,37 @@ public class PerfilFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
+        CerrarSesion(view); //funcion b
+        showEmail(view);
 
-        btnCerrarSesion = view.findViewById(R.id.btn_CerrarS);
-        btnCerrarSesion.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                showDialog();
-            }
-        });
-
+        // Inflate the layout for this fragment
+        return view;
+    }
+    // Muestra Email con el que se inicio sesion
+    private void showEmail(View view){
         auth = FirebaseAuth.getInstance();
         textView = view.findViewById(R.id.textPerfil2);
         user = auth.getCurrentUser();
+        //Si no hay usuario te regresa a a la actividad Main y si hay lo cambia el TextView
         if (user == null){
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);
         }
         else{
-            textView.setText(user.getEmail());
+            textView.setText(user.getEmail()); //cambia el texto y pone el email
         }
-        // Inflate the layout for this fragment
-        return view;
     }
+    // Accion del boton de cerrar sesion
+    private void CerrarSesion(View view){
+        btnCerrarSesion = view.findViewById(R.id.btn_CerrarS);
+        btnCerrarSesion.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                showDialog();
+            } // Muestra el dialogo de cerrar cesion
+        });
+    }
+    // Funcion para mostrar dialogo de cerrar sesion
     private void showDialog(){
         // Obtener el contexto desde la vista inflada en el fragmento
         Context context = getContext();
@@ -104,20 +112,22 @@ public class PerfilFragment extends Fragment {
         if (context != null) {
             Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.layout_custom_dialog2);
-            //button no
-            Button btnNo = dialog.findViewById(R.id.btn_yes);
+            //button cancelar que quita el dialog layout
+            Button btnNo = dialog.findViewById(R.id.btn_no);
             btnNo.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
                     dialog.dismiss();
                 }
             });
-            //button yes
-            Button btnYes = dialog.findViewById(R.id.btn_no);
+            //button de aceptar para cerrar sesion
+            Button btnYes = dialog.findViewById(R.id.btn_yes);
             btnYes.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
+                    //Cierra la sesion creada con el Auth de Firebase
                     FirebaseAuth.getInstance().signOut();
+                    //Te envia al Activity Login
                     Intent intent = new Intent(getContext(), LoginActivity.class);
                     startActivity(intent);
                 }

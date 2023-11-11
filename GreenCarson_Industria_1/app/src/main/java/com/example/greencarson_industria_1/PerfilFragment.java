@@ -12,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +24,10 @@ import android.widget.ImageView;
  */
 public class PerfilFragment extends Fragment {
 
-    private Button btnCerrarSesion;
+    FirebaseAuth auth;
+    TextView textView;
+    FirebaseUser user;
+    Button btnCerrarSesion;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -77,6 +84,16 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+        auth = FirebaseAuth.getInstance();
+        textView = view.findViewById(R.id.textPerfil2);
+        user = auth.getCurrentUser();
+        if (user == null){
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        }
+        else{
+            textView.setText(user.getEmail());
+        }
         // Inflate the layout for this fragment
         return view;
     }
@@ -100,8 +117,10 @@ public class PerfilFragment extends Fragment {
             btnYes.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
+                    FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(getContext(), LoginActivity.class);
-                    startActivity(intent);                }
+                    startActivity(intent);
+                }
             });
             dialog.show();
         }

@@ -10,7 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +25,7 @@ public class PedidosFragment extends Fragment {
 
     private Spinner materialSpin;
     private Spinner unidadSpin;
+    private EditText cantidad_RP;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,12 +89,9 @@ public class PedidosFragment extends Fragment {
         // Apply the adapter to the spinner
         unidadSpin.setAdapter(adapterUnidad);
 
-
-
-
-
         // Obtén una referencia al botón desde el diseño
         Button button = view.findViewById(R.id.button_agendar);
+        cantidad_RP = view.findViewById(R.id.cantidad_RP);
 
         // Configura un OnClickListener para el botón
         button.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +108,73 @@ public class PedidosFragment extends Fragment {
             }
         });
 
+        // Encuentra el TableLayout en la vista
+        TableLayout tableLayout = view.findViewById(R.id.tableLayout);
+
+        // Obtén una referencia al botón de "Añadir Material"
+        Button addButton = view.findViewById(R.id.button_añadirMaterial);
+
+        // Configura un OnClickListener para el botón "Añadir Material"
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Llama al método para agregar una fila a la tabla
+                agregarFilaATabla(tableLayout);
+            }
+        });
         return view;
+    }
+    // Método para agregar una fila a tu TableLayout
+    private void agregarFilaATabla(TableLayout tableLayout) {
+        // Obtén los valores seleccionados e ingresados
+        String materialSeleccionado = materialSpin.getSelectedItem().toString();
+        String cantidadIngresada = cantidad_RP.getText().toString();
+        String unidadSeleccionada = unidadSpin.getSelectedItem().toString();
+
+        // Validación para evitar agregar "Seleccionar Material" o "Seleccionar Unidad" a la tabla
+        /////////FALTANTE/////////
+
+        // Crea una nueva fila para tu TableLayout
+        TableRow row = new TableRow(getActivity());
+
+        // Crea TextViews para los valores obtenidos
+        TextView materialTextView = new TextView(getActivity());
+        materialTextView.setText(materialSeleccionado);
+        materialTextView.setPadding(10, 10, 10, 10);
+        materialTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+        TextView cantidadTextView = new TextView(getActivity());
+        cantidadTextView.setText(cantidadIngresada);
+        cantidadTextView.setPadding(10, 10, 10, 10);
+        cantidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+        TextView unidadTextView = new TextView(getActivity());
+        unidadTextView.setText(unidadSeleccionada);
+        unidadTextView.setPadding(10, 10, 10, 10);
+        unidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+        // Crea un botón para la fila
+        Button eliminarButton = new Button(getActivity());
+        eliminarButton.setText("Eliminar");
+        eliminarButton.setTextColor(getResources().getColor(R.color.redAdver));
+        eliminarButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        eliminarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tableLayout.removeView(row);
+            }
+        });
+        eliminarButton.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+        // Agrega los elementos a la fila
+        row.addView(materialTextView);
+        row.addView(cantidadTextView);
+        row.addView(unidadTextView);
+        row.addView(eliminarButton);
+
+        // Agrega la fila al TableLayout
+        tableLayout.addView(row);
     }
 
 }
+

@@ -21,6 +21,7 @@
         <item>Plásticos</item>
         <item>Orgánicos Compostables</item>
     </string-array>
+    <string name="texto_eliminar">eliminar</string>
 
 
 </resources>

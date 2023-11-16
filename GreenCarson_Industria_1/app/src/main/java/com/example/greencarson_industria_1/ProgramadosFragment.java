@@ -1,14 +1,29 @@
 package com.example.greencarson_industria_1;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +31,9 @@ import android.widget.Button;
  * create an instance of this fragment.
  */
 public class ProgramadosFragment extends Fragment {
+
+    private TextView direccionView ;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,6 +73,7 @@ public class ProgramadosFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        leerDatosDeFirestore();
     }
 
     @Override
@@ -81,11 +100,41 @@ public class ProgramadosFragment extends Fragment {
             }
         });
 
+        direccionView = view.findViewById(R.id.textView7);
+
         return view;
 
 
     }
 
+    private void leerDatosDeFirestore() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Obtener el ID del usuario autenticado
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userID = currentUser != null ? currentUser.getUid() : "";
+
+        DocumentReference docRef = db.collection("usuarios").document(userID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String direccion = document.getString("direccion");
+                        // Puedes hacer lo que necesites con la dirección obtenida
+                        Log.d(TAG, "Dirección del usuario: " + direccion);
+                        direccionView.setText(direccion);
+                    } else {
+                        Log.d(TAG, "No existe el documento para el userID: " + userID);
+                    }
+                } else {
+                    Log.d(TAG, "Error al obtener el documento: ", task.getException());
+                }
+            }
+        });
+
+    }
 
 
 }

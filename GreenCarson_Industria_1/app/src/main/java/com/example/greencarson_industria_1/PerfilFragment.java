@@ -1,20 +1,29 @@
 package com.example.greencarson_industria_1;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +36,7 @@ public class PerfilFragment extends Fragment {
     TextView textView;
     FirebaseUser user;
     Button btnCerrarSesion;
+    TextView direccionView;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -60,6 +70,7 @@ public class PerfilFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +78,7 @@ public class PerfilFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        leerDatosDeFirestore();
     }
 
     @Override
@@ -76,6 +88,7 @@ public class PerfilFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
         CerrarSesion(view); //funcion b
         showEmail(view);
+        direccionView = view.findViewById(R.id.textPerfil4);
 
         // Inflate the layout for this fragment
         return view;
@@ -134,5 +147,34 @@ public class PerfilFragment extends Fragment {
             });
             dialog.show();
         }
+    }
+
+    private void leerDatosDeFirestore() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Obtener el ID del usuario autenticado
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userID = currentUser != null ? currentUser.getUid() : "";
+
+        DocumentReference docRef = db.collection("usuarios").document(userID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String direccion = document.getString("direccion");
+                        // Puedes hacer lo que necesites con la dirección obtenida
+                        Log.d(TAG, "Dirección del usuario: " + direccion);
+                        direccionView.setText(direccion);
+                    } else {
+                        Log.d(TAG, "No existe el documento para el userID: " + userID);
+                    }
+                } else {
+                    Log.d(TAG, "Error al obtener el documento: ", task.getException());
+                }
+            }
+        });
+
     }
 }

@@ -174,6 +174,9 @@ public class PedidosFragment extends Fragment {
 
         // Agrega la fila al TableLayout
         tableLayout.addView(row);
+
+        materialSpin.setSelection(0);
+        unidadSpin.setSelection(0);
     }
 
 }

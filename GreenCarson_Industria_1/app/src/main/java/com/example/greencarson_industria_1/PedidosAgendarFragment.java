@@ -1,12 +1,17 @@
 package com.example.greencarson_industria_1;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +19,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,6 +90,8 @@ public class PedidosAgendarFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pedidos_agendar, container, false);
 
+        FirebaseApp.initializeApp(requireContext()); // Inicializa Firebase en el contexto del Fragmento
+
         btnBack = view.findViewById(R.id.buttonBackPedidos);
         btnBack.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -94,6 +109,8 @@ public class PedidosAgendarFragment extends Fragment {
         btnAgendar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                guardarEnFirestore();
+
                 // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
                 PedidosFragment changeFragment = new PedidosFragment();
                 // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PerfilFragment
@@ -151,10 +168,37 @@ public class PedidosAgendarFragment extends Fragment {
          },hora,min, false);
          tmd.show();
      }
+     // guardar
+     private void guardarEnFirestore() {
+         FirebaseFirestore db = FirebaseFirestore.getInstance();
+         // Crear un mapa con los datos que deseas guardar
+         Map<String, Object> recolecion = new HashMap<>();
+         recolecion.put("direccion", "Calle Baltazar, No. 3015, 72760");
+         recolecion.put("estado", "activo");
+         recolecion.put("fecha", "2023-11-16");
+         recolecion.put("hora", "09:14");
+         recolecion.put("usuarioID", "JP");
 
-//back buton
-    public void onBackPressed(){
+         // Agregar estos datos a la colección "usuarios"
+         db.collection("recolecciones")
+                 .add(recolecion)
+                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                     @Override
+                     public void onSuccess(DocumentReference documentReference) {
+                         // Éxito al guardar los datos
+                         Log.d(TAG, "Documento agregado con ID: " + documentReference.getId());
+                     }
+                 })
+                 .addOnFailureListener(new OnFailureListener() {
+                     @Override
+                     public void onFailure(@NonNull Exception e) {
+                         // Error al guardar los datos
+                         Log.w(TAG, "Error al agregar documento", e);
+                     }
+                 });
 
-    }
+
+     }
+
 
 }

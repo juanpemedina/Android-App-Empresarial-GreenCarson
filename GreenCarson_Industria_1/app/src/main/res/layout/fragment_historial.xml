@@ -26,6 +26,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="118dp"
             android:text="Historial de pedidos"
+            android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +40,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="32dp"
             android:text="Escoje Fecha: (Mes/Año)"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -50,7 +52,7 @@
             android:layout_marginEnd="256dp"
             android:backgroundTint="@android:color/transparent"
             android:text="Mes/Año"
-            android:textColor="#49454F"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />

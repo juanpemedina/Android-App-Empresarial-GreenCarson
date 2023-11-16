@@ -41,7 +41,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText,SpUsage,TextSizeCheck" />
+                tools:ignore="HardcodedText,SpUsage,TextSizeCheck"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/textViewA2"
@@ -54,6 +55,7 @@
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/TextViewA" />
 
             <TextView
@@ -67,6 +69,8 @@
                 android:text="Programados"
                 android:textSize="30dp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
+
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +84,8 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="55dp"
+                android:textColor="@color/black"
+
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -95,6 +101,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="271dp"
                 android:text="Historial"
+                android:textColor="@color/black"
+
                 android:textSize="30dp"
                 android:textStyle="bold"
                 android:visibility="visible"
@@ -108,6 +116,8 @@
                 android:layout_width="336dp"
                 android:layout_height="56dp"
                 android:layout_marginStart="25dp"
+                android:textColor="@color/black"
+
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="50dp"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
@@ -121,6 +131,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
+                android:textColor="@color/black"
+
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="173dp"
@@ -140,6 +152,8 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="55dp"
+                android:textColor="@color/black"
+
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"

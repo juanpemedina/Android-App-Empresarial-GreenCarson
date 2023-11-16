@@ -17,13 +17,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -41,6 +49,7 @@ public class PedidosAgendarFragment extends Fragment {
     private Button btnAgendar;
     private Button btnTime;
     private Button btnCalendar;
+    private TextView direccionView;
 
 
     //
@@ -82,6 +91,8 @@ public class PedidosAgendarFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        leerDatosDeFirestore();
+
     }
 
     @Override
@@ -91,6 +102,7 @@ public class PedidosAgendarFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pedidos_agendar, container, false);
 
         FirebaseApp.initializeApp(requireContext()); // Inicializa Firebase en el contexto del Fragmento
+        direccionView = view.findViewById(R.id.textView17);
 
         btnBack = view.findViewById(R.id.buttonBackPedidos);
         btnBack.setOnClickListener(new View.OnClickListener(){
@@ -110,7 +122,6 @@ public class PedidosAgendarFragment extends Fragment {
             @Override
             public void onClick(View view){
                 guardarEnFirestore();
-
                 // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
                 PedidosFragment changeFragment = new PedidosFragment();
                 // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PerfilFragment
@@ -135,6 +146,9 @@ public class PedidosAgendarFragment extends Fragment {
                 abrirHora(view);
             }
         });
+
+
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -171,13 +185,25 @@ public class PedidosAgendarFragment extends Fragment {
      // guardar
      private void guardarEnFirestore() {
          FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+         // Obtener el ID del usuario autenticado
+         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+         FirebaseUser currentUser = mAuth.getCurrentUser();
+         String usuarioID = currentUser != null ? currentUser.getUid() : "";
+
+         // Get Time
+         String time = btnTime.getText().toString();
+         // Get date
+         String date = btnCalendar.getText().toString();
+         String direccion = direccionView.getText().toString();
+
          // Crear un mapa con los datos que deseas guardar
          Map<String, Object> recolecion = new HashMap<>();
-         recolecion.put("direccion", "Calle Baltazar, No. 3015, 72760");
+         recolecion.put("direccion", direccion);
          recolecion.put("estado", "activo");
-         recolecion.put("fecha", "2023-11-16");
-         recolecion.put("hora", "09:14");
-         recolecion.put("usuarioID", "JP");
+         recolecion.put("fecha", date);
+         recolecion.put("hora", time);
+         recolecion.put("usuarioID", usuarioID);
 
          // Agregar estos datos a la colección "usuarios"
          db.collection("recolecciones")
@@ -197,6 +223,36 @@ public class PedidosAgendarFragment extends Fragment {
                      }
                  });
 
+
+     }
+     //leer
+     private void leerDatosDeFirestore() {
+         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+         // Obtener el ID del usuario autenticado
+         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+         FirebaseUser currentUser = mAuth.getCurrentUser();
+         String userID = currentUser != null ? currentUser.getUid() : "";
+
+         DocumentReference docRef = db.collection("usuarios").document(userID);
+         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+             @Override
+             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                 if (task.isSuccessful()) {
+                     DocumentSnapshot document = task.getResult();
+                     if (document.exists()) {
+                         String direccion = document.getString("direccion");
+                         // Puedes hacer lo que necesites con la dirección obtenida
+                         Log.d(TAG, "Dirección del usuario: " + direccion);
+                         direccionView.setText(direccion);
+                     } else {
+                         Log.d(TAG, "No existe el documento para el userID: " + userID);
+                     }
+                 } else {
+                     Log.d(TAG, "Error al obtener el documento: ", task.getException());
+                 }
+             }
+         });
 
      }
 

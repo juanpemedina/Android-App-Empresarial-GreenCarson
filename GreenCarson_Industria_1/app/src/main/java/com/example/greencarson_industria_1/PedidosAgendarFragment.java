@@ -2,6 +2,7 @@ package com.example.greencarson_industria_1;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import java.util.Calendar;
 
@@ -109,8 +111,13 @@ public class PedidosAgendarFragment extends Fragment {
                 abrirCalendario(view);
             }
         });
-
-
+        btnTime = view.findViewById(R.id.btnTime);
+        btnTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirHora(view);
+            }
+        });
         // Inflate the layout for this fragment
         return view;
     }
@@ -131,6 +138,19 @@ public class PedidosAgendarFragment extends Fragment {
         dpd.getDatePicker().setMinDate(cal.getTimeInMillis());
         dpd.show();
     }
+     public void abrirHora(View view){
+        Calendar c = Calendar.getInstance();
+        int hora = c.get(Calendar.HOUR_OF_DAY);
+        int min  = c.get(Calendar.MINUTE);
+
+         TimePickerDialog tmd = new TimePickerDialog(requireActivity(), new TimePickerDialog.OnTimeSetListener() {
+             @Override
+             public void onTimeSet(TimePicker timePicker, int hoursOfDay, int minute) {
+                     btnTime.setText(hoursOfDay + ":" + minute);
+             }
+         },hora,min, false);
+         tmd.show();
+     }
 
 //back buton
     public void onBackPressed(){

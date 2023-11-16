@@ -34,6 +34,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="79dp"
             android:text="Solicitar cancelación"
+            android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,11 +48,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="307dp"
+            android:layout_marginEnd="112dp"
             android:text="Fecha límite de cancelación"
+            android:textColor="@color/black"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -65,6 +66,7 @@
             android:ems="10"
             android:inputType="text"
             android:text="DD/MM/AAAA - DD/MM/AAAA"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -78,6 +80,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="65dp"
             android:text="Estas seguro de llevar a cabo la siguiente acción?"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"

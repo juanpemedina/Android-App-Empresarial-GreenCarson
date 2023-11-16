@@ -34,6 +34,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="79dp"
             android:text="Resumen del pedido"
+            android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,11 +48,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="307dp"
+            android:layout_marginEnd="141dp"
             android:text="Lorem Ipsum 3/05/2023"
+            android:textColor="@color/black"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -64,6 +65,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="236dp"
             android:text="Resumen del pedido"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -122,6 +124,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="256dp"
             android:text="Fecha entregado"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
@@ -135,6 +138,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="256dp"
             android:text="DD-MM-XXXX"
+            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -149,6 +153,7 @@
             android:layout_marginTop="22dp"
             android:layout_marginEnd="299dp"
             android:text="Ubicación"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtFecha2" />
@@ -161,6 +166,7 @@
             android:layout_marginTop="25dp"
             android:layout_marginEnd="25dp"
             android:text="LOREM IPSUM AJFJQMD, CP 35215 Puebla, Pue"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/btn_comentar"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,7 @@
 package com.example.greencarson_industria_1;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -9,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +24,8 @@ public class PedidosAgendarFragment extends Fragment {
 
     private Button btnBack;
     private Button btnAgendar;
+    private Button btnTime;
+    private Button btnCalendar;
 
 
     //
@@ -95,9 +101,37 @@ public class PedidosAgendarFragment extends Fragment {
                 transaction.commit();
             }
         });
+        //Calendar
+        btnCalendar = view.findViewById(R.id.btnDate);
+        btnCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirCalendario(view);
+            }
+        });
+
+
         // Inflate the layout for this fragment
         return view;
     }
+
+    public void abrirCalendario(View view){
+        Calendar cal = Calendar.getInstance();
+        int año = cal.get(Calendar.YEAR);
+        int mes = cal.get(Calendar.MONTH);
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog dpd = new DatePickerDialog(requireActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                String fecha = dayOfMonth + "/" + month + "/" + year;
+                btnCalendar.setText(fecha);
+            }
+        }, dia, mes, año);
+        dpd.getDatePicker().setMinDate(cal.getTimeInMillis());
+        dpd.show();
+    }
+
 //back buton
     public void onBackPressed(){
 

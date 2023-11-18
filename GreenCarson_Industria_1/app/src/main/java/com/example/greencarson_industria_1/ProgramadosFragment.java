@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,7 +156,6 @@ public class ProgramadosFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             TableLayout tableLayout = view.findViewById(R.id.tableLayout); // Asegúrate de tener el ID correcto aquí
-
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 // Acceder al campo "nombreDelCampo" del documento
                                 Map<String, Map<String, String>> miCampoMap = (Map<String, Map<String, String>>) document.get("contenido");
@@ -177,20 +177,26 @@ public class ProgramadosFragment extends Fragment {
                                         // Crear TextViews para cada valor y configurar su texto
                                         TextView materialTextView = new TextView(getActivity());
                                         materialTextView.setText(valorMaterial);
-                                        materialTextView.setPadding(10, 10, 10, 10);
+                                        materialTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
                                         materialTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+                                        materialTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
+                                        materialTextView.setPadding(10, 10, 10, 10);
 
 
                                         TextView cantidadTextView = new TextView(getActivity());
                                         cantidadTextView.setText(valorCantidad);
-                                        cantidadTextView.setPadding(10, 10, 10, 10);
+                                        cantidadTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
                                         cantidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+                                        cantidadTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
+                                        cantidadTextView.setPadding(10, 10, 10, 10);
 
 
                                         TextView unidadTextView = new TextView(getActivity());
                                         unidadTextView.setText(valorUnidad);
-                                        unidadTextView.setPadding(10, 10, 10, 10);
+                                        unidadTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
                                         unidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+                                        unidadTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
+                                        unidadTextView.setPadding(10, 10, 10, 10);
 
 
 

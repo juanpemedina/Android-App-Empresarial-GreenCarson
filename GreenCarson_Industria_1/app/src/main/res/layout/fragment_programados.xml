@@ -120,24 +120,30 @@
                 <TableRow>
 
                     <TextView
+                        android:textColor="@color/black"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="4"
                         android:padding="10sp"
-                        android:text="Lorem"
+                        android:textAlignment="center"
+                        android:text="Material"
                         android:textSize="14sp"></TextView>
 
                     <TextView
+                        android:textColor="@color/black"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="4"
                         android:padding="10sp"
+                        android:textAlignment="center"
                         android:text="Cantidad"
                         android:textSize="14sp"></TextView>
 
                     <TextView
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"

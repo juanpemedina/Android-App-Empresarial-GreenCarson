@@ -22,8 +22,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
+
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +78,7 @@ public class ProgramadosFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         leerDatosDeFirestore();
+        leerTablaFS();
     }
 
     @Override
@@ -134,6 +139,46 @@ public class ProgramadosFragment extends Fragment {
             }
         });
 
+    }
+    private void leerTablaFS() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("recolecciones_empresariales")
+                .whereEqualTo("usuarioID", "VHkPpTWHoGOtArC5RSvY67xkmTu1")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // Acceder al campo "nombreDelCampo" del documento
+                                Map<String, Map<String, String>> miCampoMap = (Map<String, Map<String, String>>) document.get("contenido");
+
+                                if (miCampoMap != null && !miCampoMap.isEmpty()) {
+                                    // Iterar a través del campo y acceder a sus valores
+                                    for (Map.Entry<String, Map<String, String>> entry : miCampoMap.entrySet()) {
+                                        String claveExterna = entry.getKey();
+                                        Map<String, String> mapaInterno = entry.getValue();
+
+                                        // Acceder a los valores internos del mapa interno
+                                        String valorMaterial = mapaInterno.get("material");
+                                        String valorCantidad = mapaInterno.get("cantidad");
+                                        String valorUnidad = mapaInterno.get("unidad");
+
+                                        // Hacer lo que necesites con estos valores
+                                        Log.d(TAG, "Clave externa: " + claveExterna);
+                                        Log.d(TAG, "Material: " + valorMaterial);
+                                        Log.d(TAG, "Cantidad: " + valorCantidad);
+                                        Log.d(TAG, "Unidad: " + valorUnidad);
+                                    }
+                                } else {
+                                    Log.d(TAG, "El campo nombreDelCampo está vacío o es nulo.");
+                                }
+                            }
+                        } else {
+                            Log.d(TAG, "Error obteniendo documentos: ", task.getException());
+                        }
+                    }
+                });
     }
 
 

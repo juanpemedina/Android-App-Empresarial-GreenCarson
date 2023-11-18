@@ -147,6 +147,8 @@ public class ProgramadosFragment extends Fragment {
         });
 
     }
+
+    //cambiar para datos en cambio eb tiempo real //incluir
     private void leerTablaFS(View view,FirebaseFirestore db) {
         // Obtener el ID del usuario autenticado
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -161,7 +163,7 @@ public class ProgramadosFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            TableLayout tableLayout = view.findViewById(R.id.tableLayout); // Asegúrate de tener el ID correcto aquí
+                            TableLayout tableLayout = view.findViewById(R.id.tableLayout);
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String estadoDocumento = document.getString("estado");
                                 String fechaDocumento = document.getString("fecha");
@@ -206,6 +208,7 @@ public class ProgramadosFragment extends Fragment {
                                         unidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
                                         unidadTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
                                         unidadTextView.setPadding(10, 10, 10, 10);
+
                                         // Agregar los TextViews a la fila
                                         newRow.addView(materialTextView);
                                         newRow.addView(cantidadTextView);

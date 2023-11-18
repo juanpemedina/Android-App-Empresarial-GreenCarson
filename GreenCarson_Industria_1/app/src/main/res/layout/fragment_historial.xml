@@ -12,11 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- -->
-
-        <!-- -->
-
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -80,10 +75,10 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="4"
                         android:padding="10sp"
-                        android:text="Lorem"
+                        android:text="IdPedido"
+                        android:textAlignment="center"
                         android:textSize="14sp"></TextView>
 
                     <TextView
@@ -92,7 +87,8 @@
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="4"
                         android:padding="10sp"
-                        android:text="Cantidad"
+                        android:text="Fecha"
+                        android:textAlignment="textStart"
                         android:textSize="14sp"></TextView>
 
                     <Button
@@ -101,8 +97,10 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@android:color/transparent"
                         android:text="Info"
+                        android:textAlignment="center"
                         android:textColor="@color/verdeRecicla"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:visibility="invisible" />
                 </TableRow>
 
             </TableLayout>

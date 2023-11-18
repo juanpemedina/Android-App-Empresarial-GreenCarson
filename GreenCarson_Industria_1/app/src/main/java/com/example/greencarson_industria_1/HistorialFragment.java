@@ -1,17 +1,30 @@
 package com.example.greencarson_industria_1;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.time.Month;
 import java.util.Calendar;
@@ -95,11 +108,11 @@ public class HistorialFragment extends Fragment {
                 transaction.commit();
             }
         });
-
+        readToTable(view);
 
         return view;
     }
-
+    //MOSTAR Date picker
     private void showDatePickerDialog() {
         // Obtener la instancia del calendario.
         final Calendar c = Calendar.getInstance();
@@ -108,20 +121,6 @@ public class HistorialFragment extends Fragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
 
-        // Crear un diálogo de selección de fecha.
-        /*DatePickerDialog datePickerDialog = new DatePickerDialog(
-                requireContext(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        // Mostrar la fecha seleccionada en el TextView.
-                        pickDateBtn.setText(getMonthYearString(year, monthOfYear));
-                    }
-                },
-                year, month, 1
-        );
-        // Mostrar el diálogo de selección de fecha.
-        datePickerDialog.show();*/
         MonthYearPickerDialog pd = new MonthYearPickerDialog();
         pd.setListener(new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -141,5 +140,77 @@ public class HistorialFragment extends Fragment {
 
         // Retorna el mes y el año en un formato legible.
         return monthName + " " + year;
+    }
+    //leer y mostrar tabla
+    private void readToTable(View view){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("recolecciones_empresariales")
+                .whereEqualTo("estado","terminado")
+                .whereEqualTo("usuarioID","PxpYxMIVXfbPPV27mdJvsucXqva2")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            TableLayout tableLayout = view.findViewById(R.id.tableLayout);
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                String documentId = document.getId(); // Obtiene el ID del documento
+                                String fechaCampo = document.getString("fecha");
+                                Log.d(TAG, "ID del documento: " + documentId);
+                                Log.d(TAG, "Valor del campo específico: " + fechaCampo.toString());
+
+                                // Crear una nueva fila (TableRow)
+                                TableRow newRow = new TableRow(getActivity());
+
+                                // Crear TextViews para cada valor y configurar su texto
+                                TextView documentIdTextView = new TextView(getActivity());
+                                documentIdTextView.setText(documentId);
+                                documentIdTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+                                documentIdTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+                                documentIdTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
+                                documentIdTextView.setPadding(10, 10, 10, 10);
+
+                                TextView fechaCampoTextView = new TextView(getActivity());
+                                fechaCampoTextView.setText(fechaCampo);
+                                fechaCampoTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+                                fechaCampoTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+                                fechaCampoTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
+                                fechaCampoTextView.setPadding(10, 10, 10, 10);
+
+                                Button infoButton = new Button(getActivity());
+                                infoButton.setText("Info");
+                                infoButton.setTextColor(getResources().getColor(R.color.verdeRecicla));
+                                infoButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                                infoButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
+                                        ProgramadosCancelarFragment changeFragment = new ProgramadosCancelarFragment();
+
+                                        // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PerfilFragment
+                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                        transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
+                                        transaction.addToBackStack(null); // Agrega la transacción a la pila de retroceso
+                                        transaction.commit();
+                                    }
+                                });
+                                infoButton.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+                                // Agregar los TextViews a la fila
+                                newRow.addView(documentIdTextView);
+                                newRow.addView(fechaCampoTextView);
+                                newRow.addView(infoButton);
+                                // Agregar la fila a la tabla
+                                tableLayout.addView(newRow);
+
+
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 }

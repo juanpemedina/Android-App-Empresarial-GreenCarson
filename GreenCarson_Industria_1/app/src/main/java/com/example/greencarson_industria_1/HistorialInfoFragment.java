@@ -58,8 +58,6 @@ public class HistorialInfoFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment HistorialInfoFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -115,8 +113,9 @@ public class HistorialInfoFragment extends Fragment {
         btnHComentar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                String documentId = getArguments().getString("documentId");
                 // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
-                HistorialComentariosFragment changeFragment = new HistorialComentariosFragment();
+                HistorialComentariosFragment changeFragment = HistorialComentariosFragment.newInstance(documentId);
                 // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PerfilFragment
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
@@ -128,6 +127,7 @@ public class HistorialInfoFragment extends Fragment {
 
         return view;
     }
+    //leer tabla
     private void leerTablaFS(View view, String documentId) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 

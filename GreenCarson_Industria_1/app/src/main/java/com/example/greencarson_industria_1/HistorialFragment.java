@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -130,10 +132,15 @@ public class HistorialFragment extends Fragment {
     //leer y mostrar tabla
     private void readToTable(View view){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Obtener el ID del usuario autenticado
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userID = currentUser != null ? currentUser.getUid() : "";
+
 
         db.collection("recolecciones_empresariales")
                 .whereEqualTo("estado","terminado")
-                .whereEqualTo("usuarioID","PxpYxMIVXfbPPV27mdJvsucXqva2")
+                .whereEqualTo("usuarioID", userID)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

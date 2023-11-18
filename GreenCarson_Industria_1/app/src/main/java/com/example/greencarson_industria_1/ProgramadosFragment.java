@@ -30,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -152,7 +153,6 @@ public class ProgramadosFragment extends Fragment {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String userID = currentUser != null ? currentUser.getUid() : "";
 
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("recolecciones_empresariales")
                 .whereEqualTo("estado","activo")
@@ -164,14 +164,11 @@ public class ProgramadosFragment extends Fragment {
                         if (task.isSuccessful()) {
                             TableLayout tableLayout = view.findViewById(R.id.tableLayout); // Asegúrate de tener el ID correcto aquí
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Acceder al campo "nombreDelCampo" del documento
-                                Map<String, Map<String, String>> miCampoMap = (Map<String, Map<String, String>>) document.get("contenido");
-
-                                if (miCampoMap != null && !miCampoMap.isEmpty()) {
-                                    // Iterar a través del campo y acceder a sus valores
-                                    for (Map.Entry<String, Map<String, String>> entry : miCampoMap.entrySet()) {
-                                        String claveExterna = entry.getKey();
-                                        Map<String, String> mapaInterno = entry.getValue();
+                                // Obtener el campo "contenido" como un arreglo de mapas
+                                List<Map<String, String>> listaDeMapas = (List<Map<String, String>>) document.get("contenido");
+                                if (listaDeMapas != null && !listaDeMapas.isEmpty()) {
+                                    // Iterar a través de los mapas en la lista
+                                    for (Map<String, String> mapaInterno : listaDeMapas) {
 
                                         // Acceder a los valores internos del mapa interno
                                         String valorMaterial = mapaInterno.get("material");
@@ -189,7 +186,6 @@ public class ProgramadosFragment extends Fragment {
                                         materialTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
                                         materialTextView.setPadding(10, 10, 10, 10);
 
-
                                         TextView cantidadTextView = new TextView(getActivity());
                                         cantidadTextView.setText(valorCantidad);
                                         cantidadTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
@@ -197,16 +193,12 @@ public class ProgramadosFragment extends Fragment {
                                         cantidadTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
                                         cantidadTextView.setPadding(10, 10, 10, 10);
 
-
                                         TextView unidadTextView = new TextView(getActivity());
                                         unidadTextView.setText(valorUnidad);
                                         unidadTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
                                         unidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
                                         unidadTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
                                         unidadTextView.setPadding(10, 10, 10, 10);
-
-
-
                                         // Agregar los TextViews a la fila
                                         newRow.addView(materialTextView);
                                         newRow.addView(cantidadTextView);
@@ -214,10 +206,8 @@ public class ProgramadosFragment extends Fragment {
 
                                         // Agregar la fila a la tabla
                                         tableLayout.addView(newRow);
-
-
                                         // Hacer lo que necesites con estos valores
-                                        Log.d(TAG, "Clave externa: " + claveExterna);
+                                        //Log.d(TAG, "Clave externa: " + claveExterna);
                                         Log.d(TAG, "Material: " + valorMaterial);
                                         Log.d(TAG, "Cantidad: " + valorCantidad);
                                         Log.d(TAG, "Unidad: " + valorUnidad);

@@ -33,8 +33,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -195,8 +197,26 @@ public class PedidosAgendarFragment extends Fragment {
          String date = btnCalendar.getText().toString();
          String direccion = direccionView.getText().toString();
 
+         // Declarar una List que contenga Mapas
+         List<Map<String, String>> contenido =  new ArrayList<>();
+
+         Map<String, String> elementos = new HashMap<>();
+         elementos.put("material", "carton");
+         elementos.put("cantidad", "45");
+         elementos.put("unidad", "unidad");
+
+         contenido.add(elementos);
+
+         Map<String, String> elementos0 = new HashMap<>();
+         elementos0.put("material", "plastico");
+         elementos0.put("cantidad", "45");
+         elementos0.put("unidad", "unidad");
+
+         contenido.add(elementos0);
+         
          // Crear un mapa con los datos que deseas guardar
          Map<String, Object> recolecion = new HashMap<>();
+         recolecion.put("contenido", contenido);
          recolecion.put("direccion", direccion);
          recolecion.put("estado", "activo");
          recolecion.put("fecha", date);

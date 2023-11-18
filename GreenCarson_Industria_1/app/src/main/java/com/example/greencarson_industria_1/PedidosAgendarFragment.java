@@ -204,7 +204,7 @@ public class PedidosAgendarFragment extends Fragment {
          recolecion.put("usuarioID", usuarioID);
 
          // Agregar estos datos a la colección "usuarios"
-         db.collection("recolecciones")
+         db.collection("recolecciones_empresariales")
                  .add(recolecion)
                  .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                      @Override

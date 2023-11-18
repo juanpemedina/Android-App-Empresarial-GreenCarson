@@ -16,6 +16,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PedidosFragment#newInstance} factory method to
@@ -26,6 +31,7 @@ public class PedidosFragment extends Fragment {
     private Spinner materialSpin;
     private Spinner unidadSpin;
     private EditText cantidad_RP;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,7 +78,10 @@ public class PedidosFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pedidos, container, false);
 
-        //Spiner 1
+        // To pedidosFragment
+
+
+            //Spiner 1
         materialSpin =  view.findViewById(R.id.material_RP);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getActivity(), R.array.materiales, android.R.layout.simple_spinner_item);
@@ -93,23 +102,24 @@ public class PedidosFragment extends Fragment {
         Button button = view.findViewById(R.id.button_agendar);
         cantidad_RP = view.findViewById(R.id.cantidad_RP);
 
+
+        // Encuentra el TableLayout en la vista
+        TableLayout tableLayout = view.findViewById(R.id.tableLayout);
+
         // Configura un OnClickListener para el botón
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
-                PedidosAgendarFragment changeFragment = new PedidosAgendarFragment();
-
-                // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PerfilFragment
+                List<Map<String, String>> contenido = crearContenido(tableLayout);
+                // Crea una instancia del fragmento al que deseas navegar (PedidosAgendarFragment)
+                PedidosAgendarFragment changeFragment = PedidosAgendarFragment.newInstance(contenido);
+                // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PedidosAgendarFragment
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
                 transaction.addToBackStack(null); // Agrega la transacción a la pila de retroceso
                 transaction.commit();
             }
         });
-
-        // Encuentra el TableLayout en la vista
-        TableLayout tableLayout = view.findViewById(R.id.tableLayout);
 
         // Obtén una referencia al botón de "Añadir Material"
         Button addButton = view.findViewById(R.id.button_añadirMaterial);
@@ -124,6 +134,7 @@ public class PedidosFragment extends Fragment {
         });
         return view;
     }
+
     // Método para agregar una fila a tu TableLayout
     private void agregarFilaATabla(TableLayout tableLayout) {
         // Obtén los valores seleccionados e ingresados
@@ -178,6 +189,30 @@ public class PedidosFragment extends Fragment {
         materialSpin.setSelection(0);
         unidadSpin.setSelection(0);
     }
+    //Crea mapa con valores y lo envia al proximo fragmento
+    private List<Map<String, String>> crearContenido(TableLayout tableLayout) {
+        List<Map<String, String>> listaMapas = new ArrayList<>();
 
+        for (int i = 0; i < tableLayout.getChildCount(); i++) {
+            TableRow row = (TableRow) tableLayout.getChildAt(i);
+
+            TextView materialTextView = (TextView) row.getChildAt(0);
+            TextView cantidadTextView = (TextView) row.getChildAt(1);
+            TextView unidadTextView = (TextView) row.getChildAt(2);
+
+            String material = materialTextView.getText().toString();
+            String cantidad = cantidadTextView.getText().toString();
+            String unidad = unidadTextView.getText().toString();
+
+            Map<String, String> fila = new HashMap<>();
+            fila.put("material", material);
+            fila.put("cantidad", cantidad);
+            fila.put("unidad", unidad);
+
+            listaMapas.add(fila);
+        }
+
+        return listaMapas;
+    }
 }
 

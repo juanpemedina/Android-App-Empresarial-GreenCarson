@@ -97,7 +97,9 @@
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="4"
                         android:padding="10sp"
-                        android:text="Lorem"
+                        android:text="Material"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
                         android:textSize="14sp"></TextView>
 
                     <TextView
@@ -107,6 +109,19 @@
                         android:layout_weight="4"
                         android:padding="10sp"
                         android:text="Cantidad"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_weight="4"
+                        android:padding="10sp"
+                        android:text="Unidad"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
                         android:textSize="14sp"></TextView>
 
 
@@ -163,7 +178,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"
             android:text="LOREM IPSUM AJFJQMD, CP 35215 Puebla, Pue"
             android:textColor="@color/black"

@@ -94,20 +94,6 @@ public class HistorialFragment extends Fragment {
                 showDatePickerDialog();
             }
         });
-
-        btnInfo = view.findViewById(R.id.btnInfo);
-        btnInfo.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
-                HistorialInfoFragment changeFragment = new HistorialInfoFragment();
-                // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PerfilFragment
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
-                transaction.addToBackStack(null); // Agrega la transacción a la pila de retroceso
-                transaction.commit();
-            }
-        });
         readToTable(view);
 
         return view;
@@ -186,13 +172,13 @@ public class HistorialFragment extends Fragment {
                                 infoButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
-                                        ProgramadosCancelarFragment changeFragment = new ProgramadosCancelarFragment();
-
-                                        // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PerfilFragment
+                                        String documentId = document.getId(); // Obtiene el ID del documento
+                                        // Crear una instancia del fragmento HistorialInfoFragment con el documentId
+                                        HistorialInfoFragment changeFragment = HistorialInfoFragment.newInstance(documentId);
+                                        // Realizar una transacción de fragmentos para reemplazar el Fragmento actual por HistorialInfoFragment
                                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                        transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
-                                        transaction.addToBackStack(null); // Agrega la transacción a la pila de retroceso
+                                        transaction.replace(R.id.frame_layout, changeFragment);
+                                        transaction.addToBackStack(null);
                                         transaction.commit();
                                     }
                                 });

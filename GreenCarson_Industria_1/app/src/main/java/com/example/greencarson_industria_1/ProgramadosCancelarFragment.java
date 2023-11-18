@@ -1,16 +1,30 @@
 package com.example.greencarson_industria_1;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,6 +105,7 @@ public class ProgramadosCancelarFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+    //Muestra el dialog de cancelar
     private void showDialog(){
         // Obtener el contexto desde la vista inflada en el fragmento
         Context context = getContext();
@@ -111,6 +126,7 @@ public class ProgramadosCancelarFragment extends Fragment {
             btnYes.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
+                    deleteFSPedido();
                     //limpia el dialog
                     dialog.dismiss();
                     // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
@@ -120,10 +136,52 @@ public class ProgramadosCancelarFragment extends Fragment {
                     transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
                     transaction.addToBackStack(null); // Agrega la transacción a la pila de retroceso
                     transaction.commit();
+
                 }
             });
             dialog.show();
         }
+    }
+    //borra el pedido
+    private void deleteFSPedido(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        // Obtener el ID del usuario autenticado
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userID = currentUser != null ? currentUser.getUid() : "";
+
+        db.collection("recolecciones_empresariales")
+                .whereEqualTo("estado","activo")
+                .whereEqualTo("usuarioID", userID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            // Iterar sobre los documentos que cumplen con el filtro
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // Obtener la referencia al documento y borrarlo
+                                db.collection("recolecciones_empresariales")
+                                        .document(document.getId())
+                                        .delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "Document successfully deleted!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error deleting document", e);
+                                            }
+                                        });
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 }

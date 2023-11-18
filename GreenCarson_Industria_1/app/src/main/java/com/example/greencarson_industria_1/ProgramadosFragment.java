@@ -89,10 +89,13 @@ public class ProgramadosFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_programados, container, false);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        leerDatosDeFirestore(db);
+        leerTablaFS(view, db);
+
 
         // Obtén una referencia al botón desde el diseño
         Button button = view.findViewById(R.id.btnCancel2);
-
         // Configura un OnClickListener para el botón
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,16 +114,13 @@ public class ProgramadosFragment extends Fragment {
         direccionView = view.findViewById(R.id.textView7);
         TableLayout tableLayout = view.findViewById(R.id.tableLayout); // Suponiendo que tu TableLayout tiene el id "tableLayout"
 
-        leerDatosDeFirestore();
-        leerTablaFS(view);
 
         return view;
 
 
     }
 
-    private void leerDatosDeFirestore() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private void leerDatosDeFirestore(FirebaseFirestore db) {
         // Obtener el ID del usuario autenticado
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -147,13 +147,12 @@ public class ProgramadosFragment extends Fragment {
         });
 
     }
-    private void leerTablaFS(View view) {
+    private void leerTablaFS(View view,FirebaseFirestore db) {
         // Obtener el ID del usuario autenticado
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String userID = currentUser != null ? currentUser.getUid() : "";
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("recolecciones_empresariales")
                 .whereEqualTo("estado","activo")
                 .whereEqualTo("usuarioID", userID)
@@ -164,6 +163,14 @@ public class ProgramadosFragment extends Fragment {
                         if (task.isSuccessful()) {
                             TableLayout tableLayout = view.findViewById(R.id.tableLayout); // Asegúrate de tener el ID correcto aquí
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                String estadoDocumento = document.getString("estado");
+                                String fechaDocumento = document.getString("fecha");
+                                if ("activo".equals(estadoDocumento)){
+                                    TextView noActivo = view.findViewById(R.id.textView4);
+                                    Button actCancelar = view.findViewById(R.id.btnCancel2);
+                                    actCancelar.setVisibility(View.VISIBLE);
+                                    noActivo.setText(fechaDocumento);
+                                }
                                 // Obtener el campo "contenido" como un arreglo de mapas
                                 List<Map<String, String>> listaDeMapas = (List<Map<String, String>>) document.get("contenido");
                                 if (listaDeMapas != null && !listaDeMapas.isEmpty()) {

@@ -76,13 +76,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
-            android:layout_marginEnd="276dp"
             android:layout_marginBottom="20dp"
-            android:text="DD/MM/AAAA "
+            android:text="No hay pedidos activos por el momento"
             android:textColor="@color/black"
             android:textSize="15dp"
             app:layout_constraintBottom_toTopOf="@+id/textView6"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -166,6 +164,7 @@
             android:text="Cancelar"
             android:textColor="@color/redAdver"
             android:textStyle="italic"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
@@ -176,7 +175,7 @@
             android:layout_marginStart="35dp"
             android:layout_marginEnd="100dp"
             android:layout_marginBottom="35dp"
-            android:text="LOREM IPSUM AJFJQMD, CP 35215 Puebla, Pue"
+            android:text="-"
             android:textColor="@color/black"
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"

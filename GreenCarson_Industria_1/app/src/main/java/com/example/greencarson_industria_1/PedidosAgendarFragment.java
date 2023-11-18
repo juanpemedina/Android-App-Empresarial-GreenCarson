@@ -213,7 +213,7 @@ public class PedidosAgendarFragment extends Fragment {
          elementos0.put("unidad", "unidad");
 
          contenido.add(elementos0);
-         
+
          // Crear un mapa con los datos que deseas guardar
          Map<String, Object> recolecion = new HashMap<>();
          recolecion.put("contenido", contenido);
@@ -246,12 +246,10 @@ public class PedidosAgendarFragment extends Fragment {
      //leer
      private void leerDatosDeFirestore() {
          FirebaseFirestore db = FirebaseFirestore.getInstance();
-
          // Obtener el ID del usuario autenticado
          FirebaseAuth mAuth = FirebaseAuth.getInstance();
          FirebaseUser currentUser = mAuth.getCurrentUser();
          String userID = currentUser != null ? currentUser.getUid() : "";
-
          DocumentReference docRef = db.collection("usuarios").document(userID);
          docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
              @Override
@@ -271,8 +269,5 @@ public class PedidosAgendarFragment extends Fragment {
                  }
              }
          });
-
      }
-
-
 }

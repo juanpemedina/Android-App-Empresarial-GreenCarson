@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -77,8 +79,7 @@ public class ProgramadosFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        leerDatosDeFirestore();
-        leerTablaFS();
+
     }
 
     @Override
@@ -106,6 +107,10 @@ public class ProgramadosFragment extends Fragment {
         });
 
         direccionView = view.findViewById(R.id.textView7);
+        TableLayout tableLayout = view.findViewById(R.id.tableLayout); // Suponiendo que tu TableLayout tiene el id "tableLayout"
+
+        leerDatosDeFirestore();
+        leerTablaFS(view);
 
         return view;
 
@@ -140,7 +145,7 @@ public class ProgramadosFragment extends Fragment {
         });
 
     }
-    private void leerTablaFS() {
+    private void leerTablaFS(View view) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("recolecciones_empresariales")
                 .whereEqualTo("usuarioID", "VHkPpTWHoGOtArC5RSvY67xkmTu1")
@@ -149,6 +154,8 @@ public class ProgramadosFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            TableLayout tableLayout = view.findViewById(R.id.tableLayout); // Asegúrate de tener el ID correcto aquí
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 // Acceder al campo "nombreDelCampo" del documento
                                 Map<String, Map<String, String>> miCampoMap = (Map<String, Map<String, String>>) document.get("contenido");
@@ -163,6 +170,38 @@ public class ProgramadosFragment extends Fragment {
                                         String valorMaterial = mapaInterno.get("material");
                                         String valorCantidad = mapaInterno.get("cantidad");
                                         String valorUnidad = mapaInterno.get("unidad");
+
+                                        // Crear una nueva fila (TableRow)
+                                        TableRow newRow = new TableRow(getActivity());
+
+                                        // Crear TextViews para cada valor y configurar su texto
+                                        TextView materialTextView = new TextView(getActivity());
+                                        materialTextView.setText(valorMaterial);
+                                        materialTextView.setPadding(10, 10, 10, 10);
+                                        materialTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+
+                                        TextView cantidadTextView = new TextView(getActivity());
+                                        cantidadTextView.setText(valorCantidad);
+                                        cantidadTextView.setPadding(10, 10, 10, 10);
+                                        cantidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+
+                                        TextView unidadTextView = new TextView(getActivity());
+                                        unidadTextView.setText(valorUnidad);
+                                        unidadTextView.setPadding(10, 10, 10, 10);
+                                        unidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+
+
+                                        // Agregar los TextViews a la fila
+                                        newRow.addView(materialTextView);
+                                        newRow.addView(cantidadTextView);
+                                        newRow.addView(unidadTextView);
+
+                                        // Agregar la fila a la tabla
+                                        tableLayout.addView(newRow);
+
 
                                         // Hacer lo que necesites con estos valores
                                         Log.d(TAG, "Clave externa: " + claveExterna);

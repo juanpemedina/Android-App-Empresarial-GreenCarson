@@ -147,9 +147,16 @@ public class ProgramadosFragment extends Fragment {
 
     }
     private void leerTablaFS(View view) {
+        // Obtener el ID del usuario autenticado
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userID = currentUser != null ? currentUser.getUid() : "";
+
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("recolecciones_empresariales")
-                .whereEqualTo("usuarioID", "VHkPpTWHoGOtArC5RSvY67xkmTu1")
+                .whereEqualTo("estado","activo")
+                .whereEqualTo("usuarioID", userID)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

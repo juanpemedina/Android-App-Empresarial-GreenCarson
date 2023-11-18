@@ -33,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -68,19 +69,17 @@ public class PedidosAgendarFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment PedidosAgendarFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PedidosAgendarFragment newInstance(String param1, String param2) {
+    public static PedidosAgendarFragment newInstance(List<Map<String, String>> contenido) {
         PedidosAgendarFragment fragment = new PedidosAgendarFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable("contenido", (Serializable) contenido);
         fragment.setArguments(args);
         return fragment;
     }
+
 
     public PedidosAgendarFragment() {
         // Required empty public constructor
@@ -94,7 +93,6 @@ public class PedidosAgendarFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         leerDatosDeFirestore();
-
     }
 
     @Override
@@ -103,6 +101,7 @@ public class PedidosAgendarFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pedidos_agendar, container, false);
 
+        // Obtener los argumentos pasados desde el otro fragmento
         FirebaseApp.initializeApp(requireContext()); // Inicializa Firebase en el contexto del Fragmento
         direccionView = view.findViewById(R.id.textView17);
 
@@ -123,7 +122,10 @@ public class PedidosAgendarFragment extends Fragment {
         btnAgendar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                guardarEnFirestore();
+                Bundle bundle = getArguments();
+                List<Map<String, String>> contenido = (List<Map<String, String>>) bundle.getSerializable("contenido");
+
+                guardarEnFirestore(contenido);
                 // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
                 PedidosFragment changeFragment = new PedidosFragment();
                 // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PerfilFragment
@@ -162,7 +164,7 @@ public class PedidosAgendarFragment extends Fragment {
         DatePickerDialog dpd = new DatePickerDialog(requireActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                String fecha = dayOfMonth + "/" + month + "/" + year;
+                String fecha = dayOfMonth + "-" + month + "-" + year;
                 btnCalendar.setText(fecha);
             }
         }, dia, mes, año);
@@ -183,7 +185,7 @@ public class PedidosAgendarFragment extends Fragment {
          tmd.show();
      }
      // guardar
-     private void guardarEnFirestore() {
+     private void guardarEnFirestore(List<Map<String, String>> contenido) {
          FirebaseFirestore db = FirebaseFirestore.getInstance();
 
          // Obtener el ID del usuario autenticado
@@ -197,22 +199,6 @@ public class PedidosAgendarFragment extends Fragment {
          String date = btnCalendar.getText().toString();
          String direccion = direccionView.getText().toString();
 
-         // Declarar una List que contenga Mapas
-         List<Map<String, String>> contenido =  new ArrayList<>();
-
-         Map<String, String> elementos = new HashMap<>();
-         elementos.put("material", "carton");
-         elementos.put("cantidad", "45");
-         elementos.put("unidad", "unidad");
-
-         contenido.add(elementos);
-
-         Map<String, String> elementos0 = new HashMap<>();
-         elementos0.put("material", "plastico");
-         elementos0.put("cantidad", "45");
-         elementos0.put("unidad", "unidad");
-
-         contenido.add(elementos0);
 
          // Crear un mapa con los datos que deseas guardar
          Map<String, Object> recolecion = new HashMap<>();

@@ -129,6 +129,7 @@ public class HistorialFragment extends Fragment {
         // Retorna el mes y el año en un formato legible.
         return monthName + " " + year;
     }
+
     //leer y mostrar tabla
     private void readToTable(View view){
         FirebaseFirestore db = FirebaseFirestore.getInstance();

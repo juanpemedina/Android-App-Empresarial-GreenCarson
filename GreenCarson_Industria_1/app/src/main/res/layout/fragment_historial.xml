@@ -70,7 +70,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TableRow>
+                <TableRow
+                    android:gravity="center_vertical">
+
 
                     <TextView
                         android:layout_width="0dp"
@@ -84,7 +86,6 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="4"
                         android:padding="10sp"
                         android:text="Fecha"
@@ -92,14 +93,14 @@
                         android:textSize="14sp"></TextView>
 
                     <Button
-                        android:id="@+id/btnInfo"
+                        android:id="@+id/btnShow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@android:color/transparent"
-                        android:text="Info"
-                        android:textAlignment="center"
+                        android:text="Mostrar   \nTodos"
+                        android:textAlignment="textStart"
                         android:textColor="@color/verdeRecicla"
-                        android:textStyle="italic"
+                        android:textSize="13dp"
                         android:visibility="invisible" />
                 </TableRow>
 

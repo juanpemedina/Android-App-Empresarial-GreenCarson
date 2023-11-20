@@ -38,8 +38,9 @@ import java.util.Calendar;
  */
 public class HistorialFragment extends Fragment {
     private Button pickDateBtn;
-    private Button btnInfo;
+    private Button btnShow;
     private TextView selectedDateTV;
+    private View viewP;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,6 +87,7 @@ public class HistorialFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_historial, container, false);
+        viewP = view;
         // Conectar los elementos de la interfaz de usuario.
         pickDateBtn = view.findViewById(R.id.btnD);
         selectedDateTV = view.findViewById(R.id.textView8);
@@ -96,7 +98,16 @@ public class HistorialFragment extends Fragment {
                 showDatePickerDialog();
             }
         });
-        readToTable(view);
+        readToTable(viewP, 0, 0);
+        btnShow = view.findViewById(R.id.btnShow);
+        btnShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readToTable(viewP, 0, 0);
+                btnShow.setVisibility(View.INVISIBLE);
+
+            }
+        });
 
         return view;
     }
@@ -115,6 +126,8 @@ public class HistorialFragment extends Fragment {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 // Mostrar la fecha seleccionada en el TextView.
                 pickDateBtn.setText(getMonthYearString(year, monthOfYear));
+                readToTable(viewP, year, monthOfYear);
+
             }
         });
         pd.show(getActivity().getFragmentManager(), "MonthYearPickerDialog");
@@ -131,7 +144,7 @@ public class HistorialFragment extends Fragment {
     }
 
     //leer y mostrar tabla
-    private void readToTable(View view){
+    private void readToTable(View view, int selectedYear, int selectedMonth){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // Obtener el ID del usuario autenticado
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -148,63 +161,105 @@ public class HistorialFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             TableLayout tableLayout = view.findViewById(R.id.tableLayout);
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                String documentId = document.getId(); // Obtiene el ID del documento
-                                String fechaCampo = document.getString("fecha");
-                                Log.d(TAG, "ID del documento: " + documentId);
-                                Log.d(TAG, "Valor del campo específico: " + fechaCampo.toString());
+                            clearTable(tableLayout);
 
-                                // Crear una nueva fila (TableRow)
-                                TableRow newRow = new TableRow(getActivity());
+                            if (selectedYear != 0 && selectedMonth != 0){
+                                btnShow.setVisibility(View.VISIBLE);
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    String fechaCampo = document.getString("fecha");
+                                    // Extraer el día, mes y año de la fecha almacenada en Firestore
+                                    int day = Integer.parseInt(fechaCampo.split("-")[0]);
+                                    int month = Integer.parseInt(fechaCampo.split("-")[1]);
+                                    int year = Integer.parseInt(fechaCampo.split("-")[2]);
+                                    Log.d(TAG, "ID del fecha: " + fechaCampo);
+                                    Log.d(TAG, "ID del Dia: " + day);
+                                    Log.d(TAG, "ID del Mes: " + month);
+                                    Log.d(TAG, "ID del Año: " + year);
 
-                                // Crear TextViews para cada valor y configurar su texto
-                                TextView documentIdTextView = new TextView(getActivity());
-                                documentIdTextView.setText(documentId);
-                                documentIdTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-                                documentIdTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
-                                documentIdTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
-                                documentIdTextView.setPadding(10, 10, 10, 10);
-
-                                TextView fechaCampoTextView = new TextView(getActivity());
-                                fechaCampoTextView.setText(fechaCampo);
-                                fechaCampoTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-                                fechaCampoTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
-                                fechaCampoTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
-                                fechaCampoTextView.setPadding(10, 10, 10, 10);
-
-                                Button infoButton = new Button(getActivity());
-                                infoButton.setText("Info");
-                                infoButton.setTextColor(getResources().getColor(R.color.verdeRecicla));
-                                infoButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                                infoButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        String documentId = document.getId(); // Obtiene el ID del documento
-                                        // Crear una instancia del fragmento HistorialInfoFragment con el documentId
-                                        HistorialInfoFragment changeFragment = HistorialInfoFragment.newInstance(documentId);
-                                        // Realizar una transacción de fragmentos para reemplazar el Fragmento actual por HistorialInfoFragment
-                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                        transaction.replace(R.id.frame_layout, changeFragment);
-                                        transaction.addToBackStack(null);
-                                        transaction.commit();
+                                    // Filtrar los documentos por día, mes y año seleccionados
+                                    if (year == selectedYear && month == selectedMonth ) {
+                                        insertIntoTable(document,tableLayout);
                                     }
-                                });
-                                infoButton.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+                                }
 
-                                // Agregar los TextViews a la fila
-                                newRow.addView(documentIdTextView);
-                                newRow.addView(fechaCampoTextView);
-                                newRow.addView(infoButton);
-                                // Agregar la fila a la tabla
-                                tableLayout.addView(newRow);
-
-
+                            } else {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    insertIntoTable(document,tableLayout);
+                                }
                             }
+
+
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
                 });
+    }
+    private void clearTable(TableLayout tableLayout){
+        // Obtiene el número de filas en el TableLayout
+        int childCount = tableLayout.getChildCount();
+
+        // Comienza desde 1 para no eliminar la primera fila
+        for (int i = childCount - 1; i > 0; i--) {
+            View child = tableLayout.getChildAt(i);
+            if (child instanceof TableRow) {
+                // Elimina cada fila del TableLayout excepto la primera
+                tableLayout.removeViewAt(i);
+            }
+        }
+    }
+
+//Insert to table
+    private void insertIntoTable(QueryDocumentSnapshot document, TableLayout tableLayout){
+        Log.d(TAG, document.getId() + " => " + document.getData());
+        String documentId = document.getId(); // Obtiene el ID del documento
+        String fechaCampo = document.getString("fecha");
+        Log.d(TAG, "ID del documento: " + documentId);
+        Log.d(TAG, "Valor del campo específico: " + fechaCampo.toString());
+
+        // Crear una nueva fila (TableRow)
+        TableRow newRow = new TableRow(getActivity());
+
+        // Crear TextViews para cada valor y configurar su texto
+        TextView documentIdTextView = new TextView(getActivity());
+        documentIdTextView.setText(documentId);
+        documentIdTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+        documentIdTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+        documentIdTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
+        documentIdTextView.setPadding(10, 10, 10, 10);
+
+        TextView fechaCampoTextView = new TextView(getActivity());
+        fechaCampoTextView.setText(fechaCampo);
+        fechaCampoTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+        fechaCampoTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+        fechaCampoTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
+        fechaCampoTextView.setPadding(10, 10, 10, 10);
+
+        Button infoButton = new Button(getActivity());
+        infoButton.setText("Info");
+        infoButton.setTextColor(getResources().getColor(R.color.verdeRecicla));
+        infoButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String documentId = document.getId(); // Obtiene el ID del documento
+                // Crear una instancia del fragmento HistorialInfoFragment con el documentId
+                HistorialInfoFragment changeFragment = HistorialInfoFragment.newInstance(documentId);
+                // Realizar una transacción de fragmentos para reemplazar el Fragmento actual por HistorialInfoFragment
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, changeFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+        infoButton.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+        // Agregar los TextViews a la fila
+        newRow.addView(documentIdTextView);
+        newRow.addView(fechaCampoTextView);
+        newRow.addView(infoButton);
+        // Agregar la fila a la tabla
+        tableLayout.addView(newRow);
+
     }
 }

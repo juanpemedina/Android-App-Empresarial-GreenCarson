@@ -33,6 +33,7 @@ public class PedidosFragment extends Fragment {
     private EditText cantidad_RP;
 
 
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -188,6 +189,8 @@ public class PedidosFragment extends Fragment {
 
         materialSpin.setSelection(0);
         unidadSpin.setSelection(0);
+        cantidad_RP.setText("");
+
     }
     //Crea mapa con valores y lo envia al proximo fragmento
     private List<Map<String, String>> crearContenido(TableLayout tableLayout) {

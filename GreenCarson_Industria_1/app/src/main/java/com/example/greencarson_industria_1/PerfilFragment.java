@@ -37,6 +37,8 @@ public class PerfilFragment extends Fragment {
     FirebaseUser user;
     Button btnCerrarSesion;
     TextView direccionView;
+    TextView nameView;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -89,6 +91,7 @@ public class PerfilFragment extends Fragment {
         CerrarSesion(view); //funcion b
         showEmail(view);
         direccionView = view.findViewById(R.id.textPerfil4);
+        nameView = view.findViewById(R.id.textNombre);
 
         // Inflate the layout for this fragment
         return view;
@@ -96,7 +99,7 @@ public class PerfilFragment extends Fragment {
     // Muestra Email con el que se inicio sesion
     private void showEmail(View view){
         auth = FirebaseAuth.getInstance();
-        textView = view.findViewById(R.id.textPerfil2);
+        textView = view.findViewById(R.id.textCorreo);
         user = auth.getCurrentUser();
         //Si no hay usuario te regresa a a la actividad Main y si hay lo cambia el TextView
         if (user == null){
@@ -164,9 +167,13 @@ public class PerfilFragment extends Fragment {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         String direccion = document.getString("direccion");
+                        String nombreCompañia = document.getString("compañia");
+
                         // Puedes hacer lo que necesites con la dirección obtenida
                         Log.d(TAG, "Dirección del usuario: " + direccion);
                         direccionView.setText(direccion);
+                        nameView.setText(nombreCompañia);
+
                     } else {
                         Log.d(TAG, "No existe el documento para el userID: " + userID);
                     }

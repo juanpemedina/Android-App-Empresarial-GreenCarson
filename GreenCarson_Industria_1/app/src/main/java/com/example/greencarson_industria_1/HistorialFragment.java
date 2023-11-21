@@ -168,9 +168,9 @@ public class HistorialFragment extends Fragment {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     String fechaCampo = document.getString("fecha");
                                     // Extraer el día, mes y año de la fecha almacenada en Firestore
-                                    int day = Integer.parseInt(fechaCampo.split("-")[0]);
+                                    int year = Integer.parseInt(fechaCampo.split("-")[0]);
                                     int month = Integer.parseInt(fechaCampo.split("-")[1]);
-                                    int year = Integer.parseInt(fechaCampo.split("-")[2]);
+                                    int day = Integer.parseInt(fechaCampo.split("-")[2]);
                                     Log.d(TAG, "ID del fecha: " + fechaCampo);
                                     Log.d(TAG, "ID del Dia: " + day);
                                     Log.d(TAG, "ID del Mes: " + month);

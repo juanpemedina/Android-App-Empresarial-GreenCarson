@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@android:color/transparent"
-                        android:text="Mostrar   \nTodos"
+                        android:text="Borrar   \nFiltro"
                         android:textAlignment="textStart"
                         android:textColor="@color/verdeRecicla"
                         android:textSize="13dp"

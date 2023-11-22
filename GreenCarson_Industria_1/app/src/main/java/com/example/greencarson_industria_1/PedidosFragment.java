@@ -1,10 +1,14 @@
 package com.example.greencarson_industria_1;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,16 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +46,7 @@ public class PedidosFragment extends Fragment {
     private Spinner materialSpin;
     private Spinner unidadSpin;
     private EditText cantidad_RP;
-
+    String estadoPedidoFB;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -98,20 +112,25 @@ public class PedidosFragment extends Fragment {
         unidadSpin.setAdapter(adapterUnidad);
 
         // Obtén una referencia al botón desde el diseño
-        Button button = view.findViewById(R.id.button_agendar);
         cantidad_RP = view.findViewById(R.id.cantidad_RP);
 
         // Encuentra el TableLayout en la vista
         TableLayout tableLayout = view.findViewById(R.id.tableLayout);
-        String estatusPedido = "pendiente";
+        String estatusPedido = "activo";
+        leerEstatusFS();
+        Log.d(TAG, "estatus pedidoJJ" + " => " + estadoPedidoFB);
+
+
 
         // Obtén una referencia al botón de "Btn Agendar"
         Button btnagendar = view.findViewById(R.id.button_agendar);
+        leerEstatusFS();
         // Configura un OnClickListener para el botón
         btnagendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (estatusPedido == "activo"){
+                Log.d(TAG, "estatus pedidoJJ" + " => " + estadoPedidoFB);
+                if (estadoPedidoFB == "activo"){
                     Toast.makeText(getContext(), "Ya tienes un pedido activo", Toast.LENGTH_SHORT).show();
                 } else {
                     List<Map<String, String>> contenido = crearContenido(tableLayout);
@@ -131,7 +150,8 @@ public class PedidosFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (estatusPedido == "activo"){
+                Log.d(TAG, "estatus pedidoJJ" + " => " + estadoPedidoFB);
+                if (estadoPedidoFB == "activo"){
                     Toast.makeText(getContext(), "Ya tienes un pedido activo", Toast.LENGTH_SHORT).show();
                 } else {
                     agregarFilaATabla(tableLayout);
@@ -223,5 +243,33 @@ public class PedidosFragment extends Fragment {
 
         return listaMapas;
     }
+    private void leerEstatusFS() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Obtener el ID del usuario autenticado
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userID = currentUser != null ? currentUser.getUid() : "";
+        db.collection("recolecciones_empresariales")
+                .whereEqualTo("usuarioID", userID)
+                .whereEqualTo("estado", "activo")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                estadoPedidoFB = "activo";
+                                Log.d(TAG, "estatus pedidoJP" + " => " + estadoPedidoFB);
+
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+
+
 }
 

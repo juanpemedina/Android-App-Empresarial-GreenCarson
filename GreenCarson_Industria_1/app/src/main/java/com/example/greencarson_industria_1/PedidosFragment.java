@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,10 +80,7 @@ public class PedidosFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pedidos, container, false);
 
-        // To pedidosFragment
-
-
-            //Spiner 1
+        //Spiner 1
         materialSpin =  view.findViewById(R.id.material_RP);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getActivity(), R.array.materiales, android.R.layout.simple_spinner_item);
@@ -103,34 +101,41 @@ public class PedidosFragment extends Fragment {
         Button button = view.findViewById(R.id.button_agendar);
         cantidad_RP = view.findViewById(R.id.cantidad_RP);
 
-
         // Encuentra el TableLayout en la vista
         TableLayout tableLayout = view.findViewById(R.id.tableLayout);
+        String estatusPedido = "pendiente";
 
+        // Obtén una referencia al botón de "Btn Agendar"
+        Button btnagendar = view.findViewById(R.id.button_agendar);
         // Configura un OnClickListener para el botón
-        button.setOnClickListener(new View.OnClickListener() {
+        btnagendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Map<String, String>> contenido = crearContenido(tableLayout);
-                // Crea una instancia del fragmento al que deseas navegar (PedidosAgendarFragment)
-                PedidosAgendarFragment changeFragment = PedidosAgendarFragment.newInstance(contenido);
-                // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PedidosAgendarFragment
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
-                transaction.addToBackStack(null); // Agrega la transacción a la pila de retroceso
-                transaction.commit();
+                if (estatusPedido == "activo"){
+                    Toast.makeText(getContext(), "Ya tienes un pedido activo", Toast.LENGTH_SHORT).show();
+                } else {
+                    List<Map<String, String>> contenido = crearContenido(tableLayout);
+                    // Crea una instancia del fragmento al que deseas navegar (PedidosAgendarFragment)
+                    PedidosAgendarFragment changeFragment = PedidosAgendarFragment.newInstance(contenido);
+                    // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PedidosAgendarFragment
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
+                    transaction.addToBackStack(null); // Agrega la transacción a la pila de retroceso
+                    transaction.commit();
+                }
             }
         });
-
         // Obtén una referencia al botón de "Añadir Material"
         Button addButton = view.findViewById(R.id.button_añadirMaterial);
-
         // Configura un OnClickListener para el botón "Añadir Material"
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Llama al método para agregar una fila a la tabla
-                agregarFilaATabla(tableLayout);
+                if (estatusPedido == "activo"){
+                    Toast.makeText(getContext(), "Ya tienes un pedido activo", Toast.LENGTH_SHORT).show();
+                } else {
+                    agregarFilaATabla(tableLayout);
+                }
             }
         });
         return view;
@@ -167,6 +172,7 @@ public class PedidosFragment extends Fragment {
 
         // Crea un botón para la fila
         Button eliminarButton = new Button(getActivity());
+        eliminarButton.setTransformationMethod(null);
         eliminarButton.setText("Eliminar");
         eliminarButton.setTextColor(getResources().getColor(R.color.redAdver));
         eliminarButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));

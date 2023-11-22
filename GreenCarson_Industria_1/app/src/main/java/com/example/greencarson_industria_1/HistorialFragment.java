@@ -236,6 +236,7 @@ public class HistorialFragment extends Fragment {
         fechaCampoTextView.setPadding(10, 10, 10, 10);
 
         Button infoButton = new Button(getActivity());
+        infoButton.setTransformationMethod(null);
         infoButton.setText("Info");
         infoButton.setTextColor(getResources().getColor(R.color.verdeRecicla));
         infoButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));

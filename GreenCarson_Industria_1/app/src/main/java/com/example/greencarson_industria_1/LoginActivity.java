@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +26,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextEmail, editTextPassword;
     Button buttonLog;
     FirebaseAuth mAuth;
+    TextView alert;
+    TextView emailTextView;
+    TextView claveTextView;
 
     @Override
     public void onStart() {
@@ -47,6 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword =  findViewById(R.id.password);
 
         buttonLog = findViewById(R.id.btn_login);
+        alert = findViewById(R.id.alertView);
+        emailTextView = findViewById(R.id.textView10);
+        claveTextView= findViewById(R.id.textView12);
 
         buttonLog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,8 +84,13 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    //Cambiar a ingles
-                                    Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    //Cambiar el ingles
+                                    Toast.makeText(LoginActivity.this, "Contraseña o Correo incorrecto.", Toast.LENGTH_SHORT).show();
+                                    alert.setVisibility(View.VISIBLE);
+                                    claveTextView.setTextColor(getResources().getColor(R.color.redAdver));
+                                    emailTextView.setTextColor(getResources().getColor(R.color.redAdver));
+                                    //editTextEmail.setTextColor(getResources().getColor(R.color.redAdver));
+                                    //editTextPassword.setTextColor(getResources().getColor(R.color.redAdver));
                                 }
                             }
                         });

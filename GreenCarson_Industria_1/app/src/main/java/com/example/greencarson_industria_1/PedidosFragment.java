@@ -129,18 +129,22 @@ public class PedidosFragment extends Fragment {
         btnagendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "estatus pedidoJJ" + " => " + estadoPedidoFB);
                 if (estadoPedidoFB == "activo"){
                     Toast.makeText(getContext(), "Ya tienes un pedido activo", Toast.LENGTH_SHORT).show();
                 } else {
-                    List<Map<String, String>> contenido = crearContenido(tableLayout);
-                    // Crea una instancia del fragmento al que deseas navegar (PedidosAgendarFragment)
-                    PedidosAgendarFragment changeFragment = PedidosAgendarFragment.newInstance(contenido);
-                    // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PedidosAgendarFragment
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
-                    transaction.addToBackStack(null); // Agrega la transacción a la pila de retroceso
-                    transaction.commit();
+                    List<Map<String, String>> contenido = crearContenido(tableLayout); //
+                    if (contenido.isEmpty()){
+                        Toast.makeText(getContext(), "La tabla esta vacia", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        // Crea una instancia del fragmento al que deseas navegar (PedidosAgendarFragment)
+                        PedidosAgendarFragment changeFragment = PedidosAgendarFragment.newInstance(contenido);
+                        // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PedidosAgendarFragment
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
+                        transaction.addToBackStack(null); // Agrega la transacción a la pila de retroceso
+                        transaction.commit();
+                    }
                 }
             }
         });
@@ -173,10 +177,14 @@ public class PedidosFragment extends Fragment {
         Log.d(TAG, "cantidadIngresada" + " => " + cantidadIngresada);
         Log.d(TAG, "unidadSeleccionada" + " => " + unidadSeleccionada);
 
+        //Condiciones para poder añadir material (restrictions)
         if(cantidad_RP.getText().toString().length() == 0 ){
             Log.d(TAG, "materialSeleccionado" + " => " + "vacio");
+            Toast.makeText(getContext(), "No puedes ingresar una cantidad vacía", Toast.LENGTH_SHORT).show();
+
         } else if (Integer.parseInt(cantidadIngresada) == 0) {
             Log.d(TAG, "materialSeleccionado" + " => " + "no puedes ingresar 0");
+            Toast.makeText(getContext(), "No puedes ingresar 0 como cantidad", Toast.LENGTH_SHORT).show();
         } else {
             // Crea una nueva fila para tu TableLayout
             TableRow row = new TableRow(getActivity());
@@ -219,6 +227,10 @@ public class PedidosFragment extends Fragment {
 
             // Agrega la fila al TableLayout
             tableLayout.addView(row);
+
+            // Notificacion de material añadido a tabla
+            Toast.makeText(getContext(), "Material añadido a tabla", Toast.LENGTH_SHORT).show();
+
         }
 
         materialSpin.setSelection(0);

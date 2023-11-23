@@ -102,6 +102,7 @@ public class PedidosFragment extends Fragment {
         adapterMaterial.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         materialSpin.setAdapter(adapterMaterial);
+
         //Spiner 2
         unidadSpin = view.findViewById(R.id.unidad_RP);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -116,14 +117,10 @@ public class PedidosFragment extends Fragment {
 
         // Encuentra el TableLayout en la vista
         TableLayout tableLayout = view.findViewById(R.id.tableLayout);
-        String estatusPedido = "activo";
-        leerEstatusFS();
-        Log.d(TAG, "estatus pedidoJJ" + " => " + estadoPedidoFB);
-
-
 
         // Obtén una referencia al botón de "Btn Agendar"
         Button btnagendar = view.findViewById(R.id.button_agendar);
+        // Llamar read estatus
         leerEstatusFS();
         // Configura un OnClickListener para el botón
         btnagendar.setOnClickListener(new View.OnClickListener() {
@@ -172,20 +169,18 @@ public class PedidosFragment extends Fragment {
         String cantidadIngresada = cantidad_RP.getText().toString();
         String unidadSeleccionada = unidadSpin.getSelectedItem().toString();
 
-        // Validación para evitar agregar "Seleccionar Material" o "Seleccionar Unidad" a la tabla
-        Log.d(TAG, "materialSeleccionado" + " => " + materialSeleccionado);
-        Log.d(TAG, "cantidadIngresada" + " => " + cantidadIngresada);
-        Log.d(TAG, "unidadSeleccionada" + " => " + unidadSeleccionada);
-
         //Condiciones para poder añadir material (restrictions)
-        if(cantidad_RP.getText().toString().length() == 0 ){
+        if(materialSpin.getSelectedItemPosition() == 0) {
+            Toast.makeText(getContext(), "Por favor, selecciona un material válido", Toast.LENGTH_SHORT).show();
+        } else if(cantidad_RP.getText().toString().length() == 0 ){
             Log.d(TAG, "materialSeleccionado" + " => " + "vacio");
             Toast.makeText(getContext(), "No puedes ingresar una cantidad vacía", Toast.LENGTH_SHORT).show();
-
         } else if (Integer.parseInt(cantidadIngresada) == 0) {
             Log.d(TAG, "materialSeleccionado" + " => " + "no puedes ingresar 0");
             Toast.makeText(getContext(), "No puedes ingresar 0 como cantidad", Toast.LENGTH_SHORT).show();
-        } else {
+        } else if (unidadSpin.getSelectedItemPosition() == 0) {
+            Toast.makeText(getContext(), "Por favor, selecciona una unidad valida", Toast.LENGTH_SHORT).show();
+        }else { // Si no se cumplen se ingresa en la tabla
             // Crea una nueva fila para tu TableLayout
             TableRow row = new TableRow(getActivity());
 
@@ -231,12 +226,11 @@ public class PedidosFragment extends Fragment {
             // Notificacion de material añadido a tabla
             Toast.makeText(getContext(), "Material añadido a tabla", Toast.LENGTH_SHORT).show();
 
+            //resetea los valores
+            materialSpin.setSelection(0);
+            unidadSpin.setSelection(0);
+            cantidad_RP.setText("");
         }
-
-        materialSpin.setSelection(0);
-        unidadSpin.setSelection(0);
-        cantidad_RP.setText("");
-
     }
     //Crea mapa con valores y lo envia al proximo fragmento
     private List<Map<String, String>> crearContenido(TableLayout tableLayout) {

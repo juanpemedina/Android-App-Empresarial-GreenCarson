@@ -166,7 +166,7 @@ public class PedidosAgendarFragment extends Fragment {
         DatePickerDialog dpd = new DatePickerDialog(requireActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                String fecha = year  + "-" + month + "-" + dayOfMonth;
+                String fecha = year  + "-" + (month+1) + "-" + dayOfMonth;
                 btnCalendar.setText(fecha);
             }
         }, dia, mes, año);

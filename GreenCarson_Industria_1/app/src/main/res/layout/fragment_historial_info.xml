@@ -20,8 +20,9 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="303dp"
             android:backgroundTint="@android:color/transparent"
-            android:text="Back"
+            android:text="Atrás"
             android:textColor="@color/verdeRecicla"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

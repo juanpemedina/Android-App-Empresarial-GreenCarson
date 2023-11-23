@@ -20,8 +20,9 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="303dp"
             android:backgroundTint="@android:color/transparent"
-            android:text="Back"
+            android:text="Atrás"
             android:textColor="@color/verdeRecicla"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,31 +49,26 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="112dp"
-            android:text="Fecha límite de cancelación"
+            android:layout_marginEnd="52dp"
+            android:text="Fecha y hora límite de cancelación"
             android:textColor="@color/black"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
+
         <TextView
             android:id="@+id/editTextText2"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:ems="10"
-            android:inputType="text"
-            android:text=" "
-            android:textAlignment="textStart"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="25dp"
+            android:text="2000-11-14"
+            android:textColor="#100F0F"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
 
         <TextView
             android:id="@+id/textView17"
@@ -103,7 +99,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="168dp"
+            android:text="20:00"
+            android:textColor="#070707"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editTextText2"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

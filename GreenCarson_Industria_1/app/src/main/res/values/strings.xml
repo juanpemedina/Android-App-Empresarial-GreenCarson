@@ -19,7 +19,7 @@
         <item>Papel</item>
         <item>Vidrio</item>
         <item>Plásticos</item>
-        <item>Orgánicos Compostables</item>
+        <item>Orgánicos\nCompostable</item>
     </string-array>
     <string name="texto_eliminar">eliminar</string>
 

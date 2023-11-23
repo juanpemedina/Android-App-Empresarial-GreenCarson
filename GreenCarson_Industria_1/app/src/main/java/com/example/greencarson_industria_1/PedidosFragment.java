@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -192,6 +193,7 @@ public class PedidosFragment extends Fragment {
 
             TextView cantidadTextView = new TextView(getActivity());
             cantidadTextView.setText(cantidadIngresada);
+            cantidadTextView.setGravity(Gravity.CENTER);
             cantidadTextView.setPadding(10, 10, 10, 10);
             cantidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 

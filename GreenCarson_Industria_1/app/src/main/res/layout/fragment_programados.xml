@@ -29,17 +29,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="No hay pedidos activos por el momento"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/textViewProg2"
+            app:layout_constraintTop_toBottomOf="@+id/textViewProg" />
+
+        <TextView
             android:id="@+id/textViewProg2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="151dp"
-            android:text="Lorem Ipsum 3/05/2023"
+            android:text="ID: "
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewProg" />
 
@@ -77,9 +86,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginBottom="20dp"
-            android:text="No hay pedidos activos por el momento"
+            android:text="-"
             android:textColor="@color/black"
             android:textSize="15dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/textView6"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -178,6 +188,7 @@
             android:text="-"
             android:textColor="@color/black"
             android:textSize="15dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

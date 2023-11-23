@@ -167,11 +167,21 @@ public class ProgramadosFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String estadoDocumento = document.getString("estado");
                                 String fechaDocumento = document.getString("fecha");
+                                String idDocumento = document.getId();
+
                                 if ("activo".equals(estadoDocumento)){
-                                    TextView noActivo = view.findViewById(R.id.textView4);
+                                    //Llamar ID
+                                    TextView fecha = view.findViewById(R.id.textView4);
+                                    TextView idDoc = view.findViewById(R.id.textView18);
                                     Button actCancelar = view.findViewById(R.id.btnCancel2);
+                                    TextView ubicacion = view.findViewById(R.id.textView7);
+                                    // Mostrar los que tengo
+                                    idDoc.setText(idDocumento);
+                                    fecha.setText(fechaDocumento);
                                     actCancelar.setVisibility(View.VISIBLE);
-                                    noActivo.setText(fechaDocumento);
+                                    fecha.setVisibility(View.VISIBLE);
+                                    ubicacion.setVisibility(View.VISIBLE);
+
                                 }
                                 // Obtener el campo "contenido" como un arreglo de mapas
                                 List<Map<String, String>> listaDeMapas = (List<Map<String, String>>) document.get("contenido");

@@ -104,7 +104,7 @@ public class HistorialFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 readToTable(viewP, 0, 0);
-                btnShow.setVisibility(View.INVISIBLE);
+                btnShow.setVisibility(View.GONE);
 
             }
         });

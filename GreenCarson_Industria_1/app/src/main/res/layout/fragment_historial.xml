@@ -53,6 +53,22 @@
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 
+        <Button
+            android:id="@+id/btnShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="146dp"
+            android:layout_marginEnd="147dp"
+            android:backgroundTint="@android:color/transparent"
+            android:text="Borrar Filtro"
+            android:textAlignment="textStart"
+            android:textColor="@color/verdeRecicla"
+            android:textSize="13dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnD" />
+
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -63,15 +79,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnD">
+            app:layout_constraintTop_toBottomOf="@+id/btnShow">
 
             <TableLayout
                 android:id="@+id/tableLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TableRow
-                    android:gravity="center_vertical">
+                <TableRow android:gravity="center_vertical">
 
 
                     <TextView
@@ -93,7 +108,7 @@
                         android:textSize="14sp"></TextView>
 
                     <Button
-                        android:id="@+id/btnShow"
+                        android:id="@+id/btnFiltro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@android:color/transparent"

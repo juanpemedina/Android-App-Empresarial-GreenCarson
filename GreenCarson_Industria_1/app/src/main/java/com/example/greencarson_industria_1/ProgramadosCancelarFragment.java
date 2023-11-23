@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,6 +27,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProgramadosCancelarFragment#newInstance} factory method to
@@ -35,6 +42,7 @@ public class ProgramadosCancelarFragment extends Fragment {
 
     private Button btnEliminar;
     private Button btnBack;
+    private TextView fechaLimitTV;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,6 +89,9 @@ public class ProgramadosCancelarFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_programados_cancelar, container, false);
 
+        leerFechadFS();
+
+        fechaLimitTV= view.findViewById(R.id.editTextText2);
         btnEliminar = view.findViewById(R.id.btn_eliminar);
         btnEliminar.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -183,5 +194,59 @@ public class ProgramadosCancelarFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    private void leerFechadFS() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Obtener el ID del usuario autenticado
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userID = currentUser != null ? currentUser.getUid() : "";
+
+        db.collection("recolecciones_empresariales")
+                .whereEqualTo("estado", "activo")
+                .whereEqualTo("usuarioID", userID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String fechaDocumento = document.getString("fecha");
+                                Log.d(TAG, "fechaDocumento" + fechaDocumento);
+
+                                restarUnDiaFecha(fechaDocumento);
+
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+    // Restar un dia a la fecha
+    private void restarUnDiaFecha(String fecha) {
+        try {
+            // Formato de fecha actual: AÑO-MES-DIA
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            // Parsear el String de fecha a un objeto Date
+            Date date = sdf.parse(fecha);
+            // Crear un objeto Calendar e inicializarlo con la fecha parseada
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            // Restar un día
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            // Obtener la nueva fecha
+            Date nuevaFecha = calendar.getTime();
+            // Convertir la nueva fecha de nuevo a String con el formato deseado
+            String nuevaFechaStr = sdf.format(nuevaFecha);
+            Log.d(TAG, "fechaDocumento" + nuevaFechaStr);
+
+            // Mostrar la nueva fecha en el TextView
+            fechaLimitTV.setText(nuevaFechaStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

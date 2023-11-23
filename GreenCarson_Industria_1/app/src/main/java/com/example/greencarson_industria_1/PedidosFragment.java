@@ -169,49 +169,57 @@ public class PedidosFragment extends Fragment {
         String unidadSeleccionada = unidadSpin.getSelectedItem().toString();
 
         // Validación para evitar agregar "Seleccionar Material" o "Seleccionar Unidad" a la tabla
-        /////////FALTANTE/////////
+        Log.d(TAG, "materialSeleccionado" + " => " + materialSeleccionado);
+        Log.d(TAG, "cantidadIngresada" + " => " + cantidadIngresada);
+        Log.d(TAG, "unidadSeleccionada" + " => " + unidadSeleccionada);
 
-        // Crea una nueva fila para tu TableLayout
-        TableRow row = new TableRow(getActivity());
+        if(cantidad_RP.getText().toString().length() == 0 ){
+            Log.d(TAG, "materialSeleccionado" + " => " + "vacio");
+        } else if (Integer.parseInt(cantidadIngresada) == 0) {
+            Log.d(TAG, "materialSeleccionado" + " => " + "no puedes ingresar 0");
+        } else {
+            // Crea una nueva fila para tu TableLayout
+            TableRow row = new TableRow(getActivity());
 
-        // Crea TextViews para los valores obtenidos
-        TextView materialTextView = new TextView(getActivity());
-        materialTextView.setText(materialSeleccionado);
-        materialTextView.setPadding(10, 10, 10, 10);
-        materialTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+            // Crea TextViews para los valores obtenidos
+            TextView materialTextView = new TextView(getActivity());
+            materialTextView.setText(materialSeleccionado);
+            materialTextView.setPadding(10, 10, 10, 10);
+            materialTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 
-        TextView cantidadTextView = new TextView(getActivity());
-        cantidadTextView.setText(cantidadIngresada);
-        cantidadTextView.setPadding(10, 10, 10, 10);
-        cantidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+            TextView cantidadTextView = new TextView(getActivity());
+            cantidadTextView.setText(cantidadIngresada);
+            cantidadTextView.setPadding(10, 10, 10, 10);
+            cantidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 
-        TextView unidadTextView = new TextView(getActivity());
-        unidadTextView.setText(unidadSeleccionada);
-        unidadTextView.setPadding(10, 10, 10, 10);
-        unidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+            TextView unidadTextView = new TextView(getActivity());
+            unidadTextView.setText(unidadSeleccionada);
+            unidadTextView.setPadding(10, 10, 10, 10);
+            unidadTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 
-        // Crea un botón para la fila
-        Button eliminarButton = new Button(getActivity());
-        eliminarButton.setTransformationMethod(null);
-        eliminarButton.setText("Eliminar");
-        eliminarButton.setTextColor(getResources().getColor(R.color.redAdver));
-        eliminarButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        eliminarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tableLayout.removeView(row);
-            }
-        });
-        eliminarButton.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+            // Crea un botón para la fila
+            Button eliminarButton = new Button(getActivity());
+            eliminarButton.setTransformationMethod(null);
+            eliminarButton.setText("Eliminar");
+            eliminarButton.setTextColor(getResources().getColor(R.color.redAdver));
+            eliminarButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+            eliminarButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tableLayout.removeView(row);
+                }
+            });
+            eliminarButton.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 
-        // Agrega los elementos a la fila
-        row.addView(materialTextView);
-        row.addView(cantidadTextView);
-        row.addView(unidadTextView);
-        row.addView(eliminarButton);
+            // Agrega los elementos a la fila
+            row.addView(materialTextView);
+            row.addView(cantidadTextView);
+            row.addView(unidadTextView);
+            row.addView(eliminarButton);
 
-        // Agrega la fila al TableLayout
-        tableLayout.addView(row);
+            // Agrega la fila al TableLayout
+            tableLayout.addView(row);
+        }
 
         materialSpin.setSelection(0);
         unidadSpin.setSelection(0);
@@ -259,7 +267,7 @@ public class PedidosFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 estadoPedidoFB = "activo";
-                                Log.d(TAG, "estatus pedidoJP" + " => " + estadoPedidoFB);
+                                Log.d(TAG, "estatus pedido" + " => " + estadoPedidoFB);
 
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                             }

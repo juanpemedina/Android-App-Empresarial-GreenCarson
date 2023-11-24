@@ -133,6 +133,7 @@ public class PedidosFragment extends Fragment {
                     List<Map<String, String>> contenido = crearContenido(tableLayout); //
                     if (contenido.isEmpty()){
                         Toast.makeText(getContext(), "La tabla esta vacia", Toast.LENGTH_SHORT).show();
+                        alerta(false);//prueba
 
                     } else {
                         // Crea una instancia del fragmento al que deseas navegar (PedidosAgendarFragment)
@@ -156,6 +157,7 @@ public class PedidosFragment extends Fragment {
                 if (estadoPedidoFB == "activo"){
                     Toast.makeText(getContext(), "Ya tienes un pedido activo", Toast.LENGTH_SHORT).show();
                 } else {
+                    alerta(true);
                     agregarFilaATabla(tableLayout);
                 }
             }
@@ -172,16 +174,25 @@ public class PedidosFragment extends Fragment {
 
         //Condiciones para poder añadir material (restrictions)
         if(materialSpin.getSelectedItemPosition() == 0) {
+            materialSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
             Toast.makeText(getContext(), "Por favor, selecciona un material válido", Toast.LENGTH_SHORT).show();
         } else if(cantidad_RP.getText().toString().length() == 0 ){
+            alerta(true);//prueba
+            cantidad_RP.setBackgroundResource(R.drawable.text_border_alert);  //quitar si no sirve
             Log.d(TAG, "materialSeleccionado" + " => " + "vacio");
             Toast.makeText(getContext(), "No puedes ingresar una cantidad vacía", Toast.LENGTH_SHORT).show();
         } else if (Integer.parseInt(cantidadIngresada) == 0) {
+            alerta(true);//prueba
+            cantidad_RP.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
             Log.d(TAG, "materialSeleccionado" + " => " + "no puedes ingresar 0");
             Toast.makeText(getContext(), "No puedes ingresar 0 como cantidad", Toast.LENGTH_SHORT).show();
         } else if (unidadSpin.getSelectedItemPosition() == 0) {
+            alerta(true);//prueba
+            unidadSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
             Toast.makeText(getContext(), "Por favor, selecciona una unidad valida", Toast.LENGTH_SHORT).show();
-        }else { // Si no se cumplen se ingresa en la tabla
+        } else { // Si no se cumplen se ingresa en la tabla
+            alerta(true);//prueba
+
             // Crea una nueva fila para tu TableLayout
             TableRow row = new TableRow(getActivity());
 
@@ -284,6 +295,18 @@ public class PedidosFragment extends Fragment {
                         }
                     }
                 });
+    }
+    private void alerta(boolean estado){
+        if(estado){
+            materialSpin.setBackgroundResource(R.drawable.text_border);  //quitar si no sirve
+            cantidad_RP.setBackgroundResource(R.drawable.text_border);//quitar si no sirve
+            unidadSpin.setBackgroundResource(R.drawable.text_border); //quitar si no sirve
+        } else {
+            materialSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
+            cantidad_RP.setBackgroundResource(R.drawable.text_border_alert);  //quitar si no sirve
+            unidadSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
+
+        }
     }
 
 

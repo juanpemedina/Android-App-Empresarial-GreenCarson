@@ -176,15 +176,27 @@ public class PedidosFragment extends Fragment {
         if(materialSpin.getSelectedItemPosition() == 0) {
             materialSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
             Toast.makeText(getContext(), "Por favor, selecciona un material válido", Toast.LENGTH_SHORT).show();
+            if(cantidad_RP.getText().toString().length() == 0 || Integer.parseInt(cantidadIngresada) == 0){
+                cantidad_RP.setBackgroundResource(R.drawable.text_border_alert);  //quitar si no sirve
+            }
+            if (unidadSpin.getSelectedItemPosition() == 0){
+                unidadSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
+            }
         } else if(cantidad_RP.getText().toString().length() == 0 ){
             alerta(true);//prueba
             cantidad_RP.setBackgroundResource(R.drawable.text_border_alert);  //quitar si no sirve
             Log.d(TAG, "materialSeleccionado" + " => " + "vacio");
+            if (unidadSpin.getSelectedItemPosition() == 0){
+                unidadSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
+            }
             Toast.makeText(getContext(), "No puedes ingresar una cantidad vacía", Toast.LENGTH_SHORT).show();
         } else if (Integer.parseInt(cantidadIngresada) == 0) {
             alerta(true);//prueba
             cantidad_RP.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
             Log.d(TAG, "materialSeleccionado" + " => " + "no puedes ingresar 0");
+            if (unidadSpin.getSelectedItemPosition() == 0){
+                unidadSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
+            }
             Toast.makeText(getContext(), "No puedes ingresar 0 como cantidad", Toast.LENGTH_SHORT).show();
         } else if (unidadSpin.getSelectedItemPosition() == 0) {
             alerta(true);//prueba

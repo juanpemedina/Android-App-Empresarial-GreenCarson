@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -125,14 +126,20 @@ public class PedidosAgendarFragment extends Fragment {
                 Bundle bundle = getArguments();
                 List<Map<String, String>> contenido = (List<Map<String, String>>) bundle.getSerializable("contenido");
 
-                guardarEnFirestore(contenido);
-                // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
-                PedidosFragment changeFragment = new PedidosFragment();
-                // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PerfilFragment
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
-                transaction.addToBackStack(null); // Agrega la transacción a la pila de retroceso
-                transaction.commit();
+                if (btnCalendar.getText().toString().equals("Año-Mes-Día")){
+                    Toast.makeText(getContext(), "Ingrese una fecha válida", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    guardarEnFirestore(contenido);
+                    // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
+                    PedidosFragment changeFragment = new PedidosFragment();
+                    // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PerfilFragment
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
+                    transaction.addToBackStack(null); // Agrega la transacción a la pila de retroceso
+                    transaction.commit();
+                }
+
             }
         });
         //Calendar

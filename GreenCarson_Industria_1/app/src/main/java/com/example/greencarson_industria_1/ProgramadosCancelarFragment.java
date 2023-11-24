@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,6 +44,7 @@ public class ProgramadosCancelarFragment extends Fragment {
     private Button btnEliminar;
     private Button btnBack;
     private TextView fechaLimitTV;
+    String nuevaFechaStr;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -96,7 +98,7 @@ public class ProgramadosCancelarFragment extends Fragment {
         btnEliminar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                showDialog();
+                compararFechas(nuevaFechaStr);
             }
         });
         btnBack = view.findViewById(R.id.btn_back);
@@ -239,9 +241,10 @@ public class ProgramadosCancelarFragment extends Fragment {
             calendar.add(Calendar.DAY_OF_MONTH, -1);
             // Obtener la nueva fecha
             Date nuevaFecha = calendar.getTime();
+
             // Convertir la nueva fecha de nuevo a String con el formato deseado
-            String nuevaFechaStr = sdf.format(nuevaFecha);
-            Log.d(TAG, "fechaDocumento" + nuevaFechaStr);
+            nuevaFechaStr = sdf.format(nuevaFecha);
+            Log.d(TAG, "fechaDocumento: " + nuevaFechaStr);
 
             // Mostrar la nueva fecha en el TextView
             fechaLimitTV.setText(nuevaFechaStr);
@@ -249,4 +252,36 @@ public class ProgramadosCancelarFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+    private void compararFechas(String fecha) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date date = sdf.parse(fecha); // Fecha obtenida de la base de datos
+
+            // Obtener la fecha actual
+            Calendar calendarFechaActual = Calendar.getInstance();
+            Calendar calendarFecha = Calendar.getInstance();
+            calendarFecha.setTime(date);
+
+            // Comparar solo año, mes y día
+            if (calendarFecha.get(Calendar.YEAR) == calendarFechaActual.get(Calendar.YEAR) && calendarFecha.get(Calendar.MONTH) == calendarFechaActual.get(Calendar.MONTH) &&
+                    calendarFecha.get(Calendar.DAY_OF_MONTH) == calendarFechaActual.get(Calendar.DAY_OF_MONTH)) {
+                Log.d(TAG, "La fecha es la misma que la fecha actual");
+                //Toast.makeText(getContext(), "Ya venció la fecha de cancelación", Toast.LENGTH_SHORT).show();
+
+            } else if (calendarFecha.before(calendarFechaActual)) {
+                Log.d(TAG, "La fecha es anterior a la fecha actual");
+                Toast.makeText(getContext(), "Ya venció la fecha de cancelación", Toast.LENGTH_SHORT).show();
+
+            } else {
+                showDialog();
+                Log.d(TAG, "La fecha es posterior a la fecha actual");
+
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

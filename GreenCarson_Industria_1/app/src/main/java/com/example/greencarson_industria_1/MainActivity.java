@@ -55,15 +55,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout,fragment);
         fragmentTransaction.commit();
     }
-    //Cerrar sesion
-    public void goToLogin(View v){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-    // Agendar
-
-    //Cerrar sesion pop up
-
-
 
 }

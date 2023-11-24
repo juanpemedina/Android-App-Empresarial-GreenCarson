@@ -139,11 +139,11 @@ public class ProgramadosCancelarFragment extends Fragment {
             btnYes.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-                    deleteFSPedido();
+                    //deleteFSPedido();
                     //limpia el dialog
                     dialog.dismiss();
                     // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)
-                    ProgramadosFragment changeFragment = new ProgramadosFragment();
+                    PedidosFragment changeFragment = new PedidosFragment();
                     // Realiza una transacción de fragmentos para reemplazar PedidosFragment por PerfilFragment
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                     transaction.replace(R.id.frame_layout, changeFragment); // Reemplaza el contenedor de fragmentos
@@ -263,22 +263,29 @@ public class ProgramadosCancelarFragment extends Fragment {
             Calendar calendarFecha = Calendar.getInstance();
             calendarFecha.setTime(date);
 
+            // Obtener hora
+            Calendar horaActual = Calendar.getInstance();
+            int hora = horaActual.get(Calendar.HOUR_OF_DAY); // Obtener la hora actual en formato de 24 horas
+
             // Comparar solo año, mes y día
             if (calendarFecha.get(Calendar.YEAR) == calendarFechaActual.get(Calendar.YEAR) && calendarFecha.get(Calendar.MONTH) == calendarFechaActual.get(Calendar.MONTH) &&
                     calendarFecha.get(Calendar.DAY_OF_MONTH) == calendarFechaActual.get(Calendar.DAY_OF_MONTH)) {
                 Log.d(TAG, "La fecha es la misma que la fecha actual");
-                //Toast.makeText(getContext(), "Ya venció la fecha de cancelación", Toast.LENGTH_SHORT).show();
-
+                if (hora < 17) { //Cambiar 17 por la hora que quieres
+                    showDialog();
+                    Log.d(TAG, "La hora es antes de las 18:00 hrs");
+                } else {
+                    Log.d(TAG, "La hora es después o igual a las 18:00 hrs");
+                    Toast.makeText(getContext(), "Venció la hora y fecha límite cancelación", Toast.LENGTH_SHORT).show();
+                }
             } else if (calendarFecha.before(calendarFechaActual)) {
                 Log.d(TAG, "La fecha es anterior a la fecha actual");
-                Toast.makeText(getContext(), "Ya venció la fecha de cancelación", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Venció la fecha de cancelación", Toast.LENGTH_SHORT).show();
 
             } else {
                 showDialog();
                 Log.d(TAG, "La fecha es posterior a la fecha actual");
-
             }
-
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -139,7 +139,7 @@ public class ProgramadosCancelarFragment extends Fragment {
             btnYes.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-                    //deleteFSPedido();
+                    deleteFSPedido();
                     //limpia el dialog
                     dialog.dismiss();
                     // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)

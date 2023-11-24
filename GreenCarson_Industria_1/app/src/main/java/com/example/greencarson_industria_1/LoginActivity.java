@@ -78,7 +78,11 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    //Cambiar a ingles
+                                    claveTextView.setTextColor(getResources().getColor(R.color.black));
+                                    emailTextView.setTextColor(getResources().getColor(R.color.black));
+                                    alert.setVisibility(View.INVISIBLE);
+                                    editTextEmail.setBackgroundResource(R.drawable.text_border); //quitar si no sirve
+                                    editTextPassword.setBackgroundResource(R.drawable.text_border); //quitar si no sirve
                                     Toast.makeText(getApplicationContext(), "Login correctamente", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
@@ -89,8 +93,8 @@ public class LoginActivity extends AppCompatActivity {
                                     alert.setVisibility(View.VISIBLE);
                                     claveTextView.setTextColor(getResources().getColor(R.color.redAdver));
                                     emailTextView.setTextColor(getResources().getColor(R.color.redAdver));
-                                    //editTextEmail.setTextColor(getResources().getColor(R.color.redAdver));
-                                    //editTextPassword.setTextColor(getResources().getColor(R.color.redAdver));
+                                    editTextEmail.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
+                                    editTextPassword.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
                                 }
                             }
                         });

@@ -94,7 +94,8 @@ public class HistorialInfoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_historial_info, container, false);
         String documentId = getArguments().getString("documentId");
         leerTablaFS(view,documentId);
-
+        TextView docId = view.findViewById(R.id.textView14);
+        docId.setText(documentId);
 
         btnBack = view.findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener(){

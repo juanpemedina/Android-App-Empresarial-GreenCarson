@@ -66,7 +66,7 @@
             android:inputType="number"
             android:minHeight="48dp"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2_RP" />
@@ -117,7 +117,7 @@
             android:backgroundTint="@android:color/transparent"
             android:text="+Añadir Material"
             android:textColor="@color/verdeRecicla"
-            android:textSize="14sp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/unidad_RP" />

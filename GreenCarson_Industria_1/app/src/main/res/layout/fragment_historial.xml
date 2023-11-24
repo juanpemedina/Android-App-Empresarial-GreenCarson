@@ -33,9 +33,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="10dp"
             android:text="Escoje Fecha: (Mes/Año)"
             android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -48,6 +49,7 @@
             android:backgroundTint="@android:color/transparent"
             android:text="Mes/Año"
             android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -74,7 +76,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             android:background="@drawable/layout_table"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +98,7 @@
                         android:padding="10sp"
                         android:text="IdPedido"
                         android:textAlignment="center"
+                        android:textColor="@color/black"
                         android:textSize="14sp"></TextView>
 
                     <TextView
@@ -105,6 +108,7 @@
                         android:padding="10sp"
                         android:text="Fecha"
                         android:textAlignment="textStart"
+                        android:textColor="@color/black"
                         android:textSize="14sp"></TextView>
 
                     <Button

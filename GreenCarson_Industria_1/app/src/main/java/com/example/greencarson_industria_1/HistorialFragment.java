@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -237,7 +238,8 @@ public class HistorialFragment extends Fragment {
 
         Button infoButton = new Button(getActivity());
         infoButton.setTransformationMethod(null);
-        infoButton.setText("Info");
+        infoButton.setText("Info.");
+        infoButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         infoButton.setTextColor(getResources().getColor(R.color.verdeRecicla));
         infoButton.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         infoButton.setOnClickListener(new View.OnClickListener() {

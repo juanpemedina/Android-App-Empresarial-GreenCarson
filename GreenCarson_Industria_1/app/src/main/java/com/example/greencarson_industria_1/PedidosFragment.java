@@ -175,7 +175,7 @@ public class PedidosFragment extends Fragment {
         //Condiciones para poder añadir material (restrictions)
         if(materialSpin.getSelectedItemPosition() == 0) {
             materialSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
-            Toast.makeText(getContext(), "Por favor, selecciona un material válido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Información faltante o incorrecta", Toast.LENGTH_SHORT).show();
             if(cantidad_RP.getText().toString().length() == 0 || Integer.parseInt(cantidadIngresada) == 0){
                 cantidad_RP.setBackgroundResource(R.drawable.text_border_alert);  //quitar si no sirve
             }
@@ -189,7 +189,7 @@ public class PedidosFragment extends Fragment {
             if (unidadSpin.getSelectedItemPosition() == 0){
                 unidadSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
             }
-            Toast.makeText(getContext(), "No puedes ingresar una cantidad vacía", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Información faltante o incorrecta", Toast.LENGTH_SHORT).show();
         } else if (Integer.parseInt(cantidadIngresada) == 0) {
             alerta(true);//prueba
             cantidad_RP.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
@@ -197,11 +197,11 @@ public class PedidosFragment extends Fragment {
             if (unidadSpin.getSelectedItemPosition() == 0){
                 unidadSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
             }
-            Toast.makeText(getContext(), "No puedes ingresar 0 como cantidad", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Información faltante o incorrecta", Toast.LENGTH_SHORT).show();
         } else if (unidadSpin.getSelectedItemPosition() == 0) {
             alerta(true);//prueba
             unidadSpin.setBackgroundResource(R.drawable.text_border_alert); //quitar si no sirve
-            Toast.makeText(getContext(), "Por favor, selecciona una unidad valida", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Información faltante o incorrecta", Toast.LENGTH_SHORT).show();
         } else { // Si no se cumplen se ingresa en la tabla
             alerta(true);//prueba
 

@@ -123,7 +123,7 @@
             android:layout_marginStart="130dp"
             android:layout_marginEnd="130dp"
             android:backgroundTint="@android:color/transparent"
-            android:text="+Añadir Material"
+            android:text="+Añadir material al pedido"
             android:textColor="@color/verdeRecicla"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"

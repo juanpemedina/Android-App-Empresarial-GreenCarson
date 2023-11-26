@@ -18,14 +18,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="158dp"
             android:text="Realizar Pedidos"
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,12 +31,10 @@
             android:id="@+id/textView_RP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="3dp"
-            android:layout_marginEnd="325dp"
             android:text="Material"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewP" />
 
@@ -80,12 +76,10 @@
             android:id="@+id/textView2_RP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="3dp"
-            android:layout_marginEnd="320dp"
             android:text="Cantidad"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/material_RP" />
 
@@ -93,12 +87,10 @@
             android:id="@+id/textView3_RP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="3dp"
-            android:layout_marginEnd="332dp"
             android:text="Unidad"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cantidad_RP" />
 
@@ -121,6 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="130dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="130dp"
             android:backgroundTint="@android:color/transparent"
             android:text="+Añadir material al pedido"
@@ -136,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="151dp"
             android:layout_marginEnd="150dp"
-            android:layout_marginBottom="13dp"
+            android:layout_marginBottom="15dp"
             android:backgroundTint="@color/verdeRecicla"
             android:text="Agendar"
             android:textSize="16sp"
@@ -145,10 +138,12 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ScrollView
+            android:id="@+id/scrollView4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="35dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/layout_table"
             app:layout_constraintBottom_toTopOf="@+id/button_agendar"

@@ -14,14 +14,12 @@
             android:id="@+id/buttonBackPedidos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="303dp"
             android:backgroundTint="@android:color/transparent"
             android:text="Atrás"
             android:textColor="@color/verdeRecicla"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,13 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="137dp"
             android:text="Agendar  Pedido"
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonBackPedidos" />
 
@@ -61,12 +56,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="106dp"
             android:text="Selecciona una fecha y hora"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -89,7 +82,7 @@
             android:id="@+id/btnDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
             android:backgroundTint="@android:color/transparent"
             android:text="Año-Mes-Día"
@@ -105,12 +98,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="130dp"
             android:backgroundTint="@android:color/transparent"
             android:text="00:00"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnDate"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 

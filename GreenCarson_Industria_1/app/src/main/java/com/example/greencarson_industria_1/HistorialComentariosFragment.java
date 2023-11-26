@@ -80,7 +80,6 @@ public class HistorialComentariosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_historial_comentarios, container, false);
         String documentId = getArguments().getString("documentId");
-        readDate(view,documentId);
         EditText comentETxt = view.findViewById(R.id.comentText);
 
 
@@ -141,27 +140,5 @@ public class HistorialComentariosFragment extends Fragment {
                     }
                 });
     }
-    private void readDate(View view, String documentId){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("recolecciones_empresariales").document(documentId);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        TextView fechaTextView = view.findViewById(R.id.textView14);
-                        String fechaDocumento = document.getString("fecha");
-                        fechaTextView.setText(fechaDocumento);
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
 
-    }
 }

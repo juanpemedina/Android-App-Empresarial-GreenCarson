@@ -43,19 +43,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="141dp"
-            android:text="Lorem Ipsum 3/05/2023"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
 
         <TextView
@@ -69,7 +56,7 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <ScrollView
             android:id="@+id/scrollView2"

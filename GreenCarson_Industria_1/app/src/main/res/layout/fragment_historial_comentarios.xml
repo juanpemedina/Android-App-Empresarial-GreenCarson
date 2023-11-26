@@ -41,21 +41,6 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
         <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="307dp"
-            android:text="Lorem Ipsum 3/05/2023"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-        <TextView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +52,7 @@
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <EditText
             android:id="@+id/comentText"
@@ -76,9 +61,14 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="50dp"
+            android:background="@drawable/text_border"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:scrollbars="vertical"
+            android:gravity="top|start"
             android:textColor="@color/black"
+            android:padding="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"

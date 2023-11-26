@@ -106,6 +106,7 @@ public class HistorialFragment extends Fragment {
             public void onClick(View view) {
                 readToTable(viewP, 0, 0);
                 btnShow.setVisibility(View.INVISIBLE);
+                pickDateBtn.setText("Mes/Año");
 
             }
         });

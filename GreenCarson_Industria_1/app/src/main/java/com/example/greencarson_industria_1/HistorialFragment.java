@@ -30,7 +30,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -153,7 +157,7 @@ public class HistorialFragment extends Fragment {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String userID = currentUser != null ? currentUser.getUid() : "";
 
-
+        // Obtener la colección de documentos filtrados por el estado "terminado" y el ID de usuario
         db.collection("recolecciones_empresariales")
                 .whereEqualTo("estado","terminado")
                 .whereEqualTo("usuarioID", userID)
@@ -162,34 +166,52 @@ public class HistorialFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            TableLayout tableLayout = view.findViewById(R.id.tableLayout);
-                            clearTable(tableLayout);
+                            // Crear una lista para almacenar los documentos filtrados
+                            List<QueryDocumentSnapshot> filteredDocuments = new ArrayList<>();
 
-                            if (selectedYear != 0 && selectedMonth != 0){
-                                btnShow.setVisibility(View.VISIBLE);
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    String fechaCampo = document.getString("fecha");
-                                    // Extraer el día, mes y año de la fecha almacenada en Firestore
-                                    int year = Integer.parseInt(fechaCampo.split("-")[0]);
-                                    int month = Integer.parseInt(fechaCampo.split("-")[1]);
-                                    int day = Integer.parseInt(fechaCampo.split("-")[2]);
-                                    Log.d(TAG, "ID del fecha: " + fechaCampo);
-                                    Log.d(TAG, "ID del Dia: " + day);
-                                    Log.d(TAG, "ID del Mes: " + month);
-                                    Log.d(TAG, "ID del Año: " + year);
+                            // Iterar a través de los documentos obtenidos
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String fechaCampo = document.getString("fecha");
+                                // Extraer el día, mes y año de la fecha almacenada en Firestore
+                                int year = Integer.parseInt(fechaCampo.split("-")[0]);
+                                int month = Integer.parseInt(fechaCampo.split("-")[1]);
+                                int day = Integer.parseInt(fechaCampo.split("-")[2]);
 
-                                    // Filtrar los documentos por día, mes y año seleccionados
-                                    if (year == selectedYear && month == selectedMonth ) {
-                                        insertIntoTable(document,tableLayout);
+                                // Filtrar los documentos por día, mes y año seleccionados
+                                if (selectedYear != 0 && selectedMonth != 0) {
+                                    if (year == selectedYear && month == selectedMonth) {
+                                        // Agregar el documento filtrado a la lista
+                                        filteredDocuments.add(document);
+                                        // Hacer visible el botón btnShow cuando se agregue un documento filtrado
+                                        btnShow.setVisibility(View.VISIBLE);
                                     }
-                                }
-
-                            } else {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    insertIntoTable(document,tableLayout);
+                                } else {
+                                    // Si no se seleccionó una fecha específica, agregar todos los documentos
+                                    filteredDocuments.add(document);
                                 }
                             }
 
+                            // Ordenar los documentos filtrados por fecha de manera descendente
+                            Collections.sort(filteredDocuments, new Comparator<QueryDocumentSnapshot>() {
+                                @Override
+                                public int compare(QueryDocumentSnapshot doc1, QueryDocumentSnapshot doc2) {
+                                    String fechaCampo1 = doc1.getString("fecha");
+                                    String fechaCampo2 = doc2.getString("fecha");
+
+                                    // Parsear las fechas y compararlas (orden descendente)
+                                    // Asumiendo que la fecha está en formato "YYYY-MM-DD"
+                                    return fechaCampo2.compareTo(fechaCampo1);
+                                }
+                            });
+
+                            // Encontrar la tabla en la vista y borrar su contenido previo
+                            TableLayout tableLayout = view.findViewById(R.id.tableLayout);
+                            clearTable(tableLayout);
+
+                            // Insertar los documentos ordenados en la tabla
+                            for (QueryDocumentSnapshot document : filteredDocuments) {
+                                insertIntoTable(document, tableLayout);
+                            }
 
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
@@ -197,6 +219,8 @@ public class HistorialFragment extends Fragment {
                     }
                 });
     }
+
+
     private void clearTable(TableLayout tableLayout){
         // Obtiene el número de filas en el TableLayout
         int childCount = tableLayout.getChildCount();

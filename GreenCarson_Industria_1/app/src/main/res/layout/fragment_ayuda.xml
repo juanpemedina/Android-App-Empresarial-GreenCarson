@@ -28,65 +28,63 @@
 
             <TextView
                 android:id="@+id/TextViewA"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="158dp"
                 android:text="Realizar Pedidos"
+                android:textColor="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText,SpUsage,TextSizeCheck"
-                android:textColor="@color/black" />
+                tools:ignore="HardcodedText,SpUsage,TextSizeCheck" />
 
             <TextView
                 android:id="@+id/textViewA2"
-                android:layout_width="331dp"
-                android:layout_height="56dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="55dp"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                android:textColor="@color/black"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/TextViewA" />
 
             <TextView
                 android:id="@+id/textViewA3"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="204dp"
                 android:text="Programados"
+                android:textColor="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
 
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewA2"
                 tools:ignore="HardcodedText,SpUsage,TextSizeCheck" />
 
             <TextView
                 android:id="@+id/textViewA4"
-                android:layout_width="331dp"
-                android:layout_height="56dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="55dp"
-                android:textColor="@color/black"
-
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+
+                android:textColor="@color/black"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,28 +97,26 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="271dp"
                 android:text="Historial"
                 android:textColor="@color/black"
 
                 android:textSize="30dp"
                 android:textStyle="bold"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewA4"
                 tools:ignore="HardcodedText,SpUsage,TextSizeCheck" />
 
             <TextView
                 android:id="@+id/textViewA6"
-                android:layout_width="336dp"
-                android:layout_height="56dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:textColor="@color/black"
-
                 android:layout_marginTop="20dp"
+
                 android:layout_marginEnd="50dp"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+                android:textColor="@color/black"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -131,30 +127,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
-
                 android:layout_marginStart="25dp"
+
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="173dp"
                 android:text="Eliminar Pedido"
+                android:textColor="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewA6"
                 tools:ignore="HardcodedText,SpUsage,TextSizeCheck" />
 
             <TextView
                 android:id="@+id/textViewA8"
-                android:layout_width="336dp"
-                android:layout_height="56dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="55dp"
-                android:textColor="@color/black"
-
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+
+                android:textColor="@color/black"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

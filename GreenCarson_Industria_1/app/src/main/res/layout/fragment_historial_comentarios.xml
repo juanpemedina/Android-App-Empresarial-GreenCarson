@@ -80,10 +80,23 @@
             android:layout_marginEnd="159dp"
             android:backgroundTint="@color/verdeRecicla"
             android:text="Enviar"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/comentText" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="40dp"
+            android:text="Solo se puede tener un comentario activo; si ya has realizado uno, se actualizará"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_enviar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

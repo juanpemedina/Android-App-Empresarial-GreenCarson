@@ -39,17 +39,6 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
 
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            android:text="Resumen del pedido"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="0dp"
@@ -62,7 +51,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView17">
+            app:layout_constraintTop_toBottomOf="@+id/textView9">
 
             <TableLayout
                 android:id="@+id/tableLayout"
@@ -119,6 +108,7 @@
             android:layout_marginTop="10dp"
             android:text="Fecha entregado"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
@@ -140,9 +130,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="10dp"
             android:text="Ubicación"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtFecha2" />
 
@@ -152,12 +143,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="30dp"
             android:text="LOREM IPSUM AJFJQMD, CP 35215 Puebla, Pue"
             android:textColor="@color/black"
             android:textSize="15sp"
-            app:layout_constraintEnd_toStartOf="@+id/btn_comentar"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtUbi" />
 
@@ -165,13 +155,17 @@
             android:id="@+id/btn_comentar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="25dp"
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="125dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/verdeRecicla"
             android:text="Hacer comentario"
             android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtUbi" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

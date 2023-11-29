@@ -237,6 +237,7 @@ public class HistorialFragment extends Fragment {
 
 //Insert to table
     private void insertIntoTable(QueryDocumentSnapshot document, TableLayout tableLayout){
+        if (getContext()== null) return;
         Log.d(TAG, document.getId() + " => " + document.getData());
         String documentId = document.getId(); // Obtiene el ID del documento
         String fechaCampo = document.getString("fecha");
@@ -244,24 +245,24 @@ public class HistorialFragment extends Fragment {
         Log.d(TAG, "Valor del campo específico: " + fechaCampo.toString());
 
         // Crear una nueva fila (TableRow)
-        TableRow newRow = new TableRow(getActivity());
+        TableRow newRow = new TableRow(getContext());
 
         // Crear TextViews para cada valor y configurar su texto
-        TextView documentIdTextView = new TextView(getActivity());
+        TextView documentIdTextView = new TextView(getContext());
         documentIdTextView.setText(documentId);
         documentIdTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
         documentIdTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
         documentIdTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
         documentIdTextView.setPadding(10, 10, 10, 10);
 
-        TextView fechaCampoTextView = new TextView(getActivity());
+        TextView fechaCampoTextView = new TextView(getContext());
         fechaCampoTextView.setText(fechaCampo);
         fechaCampoTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
         fechaCampoTextView.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
         fechaCampoTextView.setTextColor(getResources().getColor(android.R.color.black)); // Establecer color negro
         fechaCampoTextView.setPadding(10, 10, 10, 10);
 
-        Button infoButton = new Button(getActivity());
+        Button infoButton = new Button(getContext());
         infoButton.setTransformationMethod(null);
         infoButton.setText("Info.");
         infoButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);

@@ -34,7 +34,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="158dp"
-                android:text="Realizar Pedidos"
+                android:text="Realizar Pedido"
                 android:textColor="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold"
@@ -49,9 +49,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="55dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                android:text="Para poder añadir un elemento a la recolección se necesita seleccionar &quot;material&quot;, &quot;cantidad&quot;, &quot;unidad&quot; y después presionar el botón &quot;Añadir material al pedido&quot;. Una vez estén todos los elementos deseados, el usuario podrá pasar a seleccionar la fecha y hora de su recolección a través del botón &quot;Agendar&quot;."
                 android:textColor="@color/black"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,8 +64,8 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                android:text="Programados"
+                android:layout_marginTop="10dp"
+                android:text="Pedido Programado"
                 android:textColor="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold"
@@ -76,31 +76,16 @@
                 tools:ignore="HardcodedText,SpUsage,TextSizeCheck" />
 
             <TextView
-                android:id="@+id/textViewA4"
+                android:id="@+id/textViewA"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="55dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
-
-                android:textColor="@color/black"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewA3" />
-
-            <TextView
-                android:id="@+id/textViewA5"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                android:text="Historial"
+                android:layout_marginTop="10dp"
+                android:text="Solicitar cancelación"
                 android:textColor="@color/black"
-
                 android:textSize="30dp"
+
                 android:textStyle="bold"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
@@ -108,29 +93,45 @@
                 tools:ignore="HardcodedText,SpUsage,TextSizeCheck" />
 
             <TextView
-                android:id="@+id/textViewA6"
+                android:id="@+id/textViewA4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="55dp"
 
-                android:layout_marginEnd="50dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+                android:text="Debido a la logísitca de la operación, el usuario solo puede tener una recolección activa a la vez. Además de ver el resumén de la recolección, desde esta pantalla también podremos solicitar la cancelación através del botón &quot;Cancelar pedido&quot;."
                 android:textColor="@color/black"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewA5" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewA3" />
 
             <TextView
-                android:id="@+id/textViewA7"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
+                android:id="@+id/textViewA9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="55dp"
 
-                android:layout_marginTop="20dp"
-                android:text="Eliminar Pedido"
+                android:text="La fecha límite de cancelación del pedido es hasta las 17:00 hrs del dia anterior a la fecha de la misma, pasando esa fecha no se aceptan cambios."
+                android:textColor="@color/black"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewA" />
+
+            <TextView
+                android:id="@+id/textViewA5"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+
+                android:text="Resumen del pedido"
                 android:textColor="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold"
@@ -140,16 +141,83 @@
                 tools:ignore="HardcodedText,SpUsage,TextSizeCheck" />
 
             <TextView
+                android:id="@+id/textViewA10"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="25dp"
+
+                android:layout_marginTop="10dp"
+                android:text="Historial de pedidos"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewA9"
+                tools:ignore="HardcodedText,SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/textViewA13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="Además de ver la información específica de la recolección, como los materiales que se recogieron, el usuario podrá hacer un comentario de la recolección a través del boton &quot;Realizar comentario&quot;  con la finalidad de que sea visto por los miembros de la empresa."
+                android:textColor="@color/black"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewA5" />
+
+            <TextView
+                android:id="@+id/textViewA6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="Una vez, se haya concluido la recolección activa, esta pasará a la pantalla de historial. Desde aquí podremos filtrar las recolecciones por mes y año, accediendo a su información específica a través del botón de &quot;info&quot;."
+                android:textColor="@color/black"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewA10" />
+
+            <TextView
+                android:id="@+id/textViewA7"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="25dp"
+
+                android:layout_marginTop="10dp"
+                android:text="Perfil"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewA13"
+                tools:ignore="HardcodedText,SpUsage,TextSizeCheck" />
+
+            <TextView
                 android:id="@+id/textViewA8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="55dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+                android:layout_marginBottom="25dp"
 
+                android:text="Además de visualizar la información de su cuenta, como el correo electrónico, nombre de la compañía y ubicación de sus recolecciones, el usuario podra cerrar sesión y volver a la pantalla de inicio a través del botón de &quot;Cerrar sesión&quot;"
                 android:textColor="@color/black"
                 android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewA7" />

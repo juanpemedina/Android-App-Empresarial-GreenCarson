@@ -133,6 +133,8 @@ public class HistorialFragment extends Fragment {
                 // Mostrar la fecha seleccionada en el TextView.
                 pickDateBtn.setText(getMonthYearString(year, monthOfYear));
                 readToTable(viewP, year, monthOfYear);
+                btnShow.setVisibility(View.VISIBLE);
+
 
             }
         });

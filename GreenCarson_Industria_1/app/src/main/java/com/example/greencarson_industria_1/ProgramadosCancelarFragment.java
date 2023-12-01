@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -140,6 +142,14 @@ public class ProgramadosCancelarFragment extends Fragment {
                 @Override
                 public void onClick(View view){
                     deleteFSPedido();
+                    // Una vez que el pedido se ha eliminado con éxito
+                    BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView); // Reemplaza con tu ID de BottomNavigationView
+
+                    // Seleccionar el elemento deseado
+                    MenuItem menuItem = bottomNavigationView.getMenu().findItem(R.id.pedidos); // Reemplaza con el ID del elemento a seleccionar
+                    menuItem.setChecked(true);
+
+
                     //limpia el dialog
                     dialog.dismiss();
                     // Crea una instancia del fragmento al que deseas navegar (PerfilFragment)

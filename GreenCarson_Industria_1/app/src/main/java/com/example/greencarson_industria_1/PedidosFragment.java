@@ -98,7 +98,12 @@ public class PedidosFragment extends Fragment {
         //Spiner 1
         materialSpin =  view.findViewById(R.id.material_RP);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getActivity(), R.array.materiales, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterMaterial = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item);
+
+        adapterMaterial.add("Seleciona Material");
+
+        spinnerInfo(adapterMaterial, 1);
+
         // Specify the layout to use when the list of choices appears
         adapterMaterial.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
@@ -107,9 +112,15 @@ public class PedidosFragment extends Fragment {
         //Spiner 2
         unidadSpin = view.findViewById(R.id.unidad_RP);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapterUnidad = ArrayAdapter.createFromResource(getActivity(), R.array.unidad, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterUnidad = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item);
+
+        adapterUnidad.add("Seleciona Unidad");
+        spinnerInfo(adapterUnidad, 2);
+
+
         // Specify the layout to use when the list of choices appears
         adapterUnidad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         // Apply the adapter to the spinner
         unidadSpin.setAdapter(adapterUnidad);
 
@@ -320,7 +331,42 @@ public class PedidosFragment extends Fragment {
 
         }
     }
+    private void spinnerInfo(ArrayAdapter adapter,int identificador){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (identificador == 1){
+            db.collection("materiales")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    adapter.add(document.getId());
 
-
+                                }
+                            } else {
+                                Log.w(TAG, "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
+        } else if (identificador == 2) {
+            db.collection("unidades")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    adapter.add(document.getId());
+                                }
+                            } else {
+                                Log.w(TAG, "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
+        }
+    }
 }
 
